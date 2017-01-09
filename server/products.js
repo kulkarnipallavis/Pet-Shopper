@@ -1,6 +1,5 @@
 'use strict'
 
-const epilogue = require('./epilogue')
 const db = require('APP/db')
 
 const customProductRoutes = require('express').Router() 
@@ -44,8 +43,4 @@ customProductRoutes.get('/food', (req, res, next) => {
 
 module.exports = customProductRoutes
 
-// Epilogue will automatically create standard RESTful routes
-const products = epilogue.resource({
-  model: db.model('products'),
-  endpoints: ['/products', '/products/:id']
-})
+
