@@ -1,46 +1,30 @@
 'use strict'
 
 const db = require('APP/db')
+const Product = db.model('products')
 
-const customProductRoutes = require('express').Router() 
+const router = require('express').Router()
 
 // Custom routes go here.
-customProductRoutes.get('/clothing', (req, res, next) => {
-	Products.findAll({
-		where: {
-			category: 'clothing'
-		}
-	})
+
+// get all products or query for specific ones
+router.get('/', (req, res, next) => {
+	Product.findAll(req.body)
 	.then(products => {
 		res.send(products);
 	})
 	.catch(next);
 })
 
-customProductRoutes.get('/toys', (req, res, next) => {
-	Products.findAll({
-		where: {
-			category: 'toys'
-		}
-	})
-	.then(products => {
-		res.send(products);
+router.get('/:id', (req, res, next) => {
+	Product.findById(req.params.id)
+	.then(product => {
+		res.send(product);
 	})
 	.catch(next);
 })
 
-customProductRoutes.get('/food', (req, res, next) => {
-	Products.findAll({
-		where: {
-			category: 'food'
-		}
-	})
-	.then(products => {
-		res.send(products);
-	})
-	.catch(next);
-})
 
-module.exports = customProductRoutes
+module.exports = router
 
 
