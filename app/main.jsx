@@ -9,16 +9,20 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav> 
-      {children}
-    </div>
+    <MuiThemeProvider>
+      <div>
+        <nav>
+          {user ? <WhoAmI/> : <Login/>}
+        </nav> 
+        {children}
+      </div>
+    </MuiThemeProvider>
 )
 
 render (
