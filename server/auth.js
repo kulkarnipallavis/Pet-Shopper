@@ -140,16 +140,17 @@ auth.post('/signup', (req, res, next) => {
   })
   .then(user => {
     if(user){
-      res.status(409).send("User already exists");
+      res.status(409).send('User already exists');
     } else {
       return User.create(req.body)
     }
   })
-  .then(newUser => res.send(newUser))
+  .then(newUser => {
+    res.sendStatus(201);
+  })
   .catch(next);
 }
-
-  )
+)
 
 module.exports = auth
 

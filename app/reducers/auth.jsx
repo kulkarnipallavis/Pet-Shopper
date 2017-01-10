@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import {browserHistory} from 'react-router'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -39,7 +40,13 @@ export const signUp = (name, email, password) =>
   dispatch =>
     axios.post('/api/auth/signUp', {name, email, password})
       .then(() => {
+        dispatch(login(email, password))
+      })
+      .then(() => {
         dispatch(whoami())
+      })
+      .then(() => {
+        browserHistory.push('/')
       })
       .catch(() => {
         dispatch(whoami())
