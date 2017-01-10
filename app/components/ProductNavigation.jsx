@@ -8,13 +8,15 @@ export default () => {
 
 const styles = {
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: 'auto'
+    display: 'flex'
   },
   gridList: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
-    cellHeight: 'auto' // this should workkkkk
+    cellHeight: 'auto',
+    margin: 'auto'
   },
   gridTile: {// whyyyy height whyyyy
       width: 'auto',
