@@ -8,88 +8,97 @@ const style = {
   margin: 12,
 };
 
-export class SignUp extends Component{
-  constructor(){
-    super();
-    this.state = {
-      password : "",
-      passwordConfirm : "",
-      errorText : "",
-      disabled : true  
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    signUpSubmit: function(name, email, password) {
+      dispatch(signUp(name, email, password));
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangeConfirm = this.handleChangeConfirm.bind(this);
-  }
-
-  handleSubmit(evt){
-    evt.preventDefault();
-    signUp(evt.target.name.value, evt.target.email.value, evt.target.password.value);  
-  }
-
-  handleChangePassword(evt){
-      this.setState({
-        password : evt.target.value
-      })
-  }
-
-  handleChangeConfirm(evt){
-    if(this.state.password !== evt.target.value){
-      this.setState({
-          errorText : "Passwords must match."
-      })
-    }else{
-      this.setState({
-          errorText : "",
-          disabled : false
-      })
-    }
-  }
- 
-  render(){
-   return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <TextField
-            name="name"
-            hintText="Name"
-            floatingLabelText="Name"
-          /><br />
-          <br />
-          <TextField
-            name="email"
-            hintText="Email"
-            floatingLabelText="Email"
-          /><br />
-          <br />
-          <TextField
-            name="password"
-            hintText="Password"
-            floatingLabelText="Password"
-            type="password"
-            onChange={this.handleChangePassword}
-          /><br />
-          <br />
-          <TextField
-            name="passwordConfirm"
-            hintText="Confirm Password"
-            floatingLabelText="Confirm Password"
-            type="password"
-            errorText={this.state.errorText}
-            onChange={this.handleChangeConfirm}
-          /><br />
-          <RaisedButton type="submit" value="signUp" label="Sign Up" style={style} disabled={this.state.disabled} />
-        </div>
-      </form>
-    );
   }
 }
 
+export default connect (null, mapDispatchToProps) ( 
+  class SignUp extends Component{
+    constructor(){
+      super();
+      this.state = {
+        password : "",
+        errorText : "",
+        disabled : true  
+      }
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChangePassword = this.handleChangePassword.bind(this);
+      this.handleChangeConfirm = this.handleChangeConfirm.bind(this);
+    }
 
-export default connect (
-  state => ({}),
-  {signUp}
-  ) (SignUp)
+    handleSubmit(evt){
+      console.log("inside handleSubmit");
+      evt.preventDefault();
+      this.props.signUpSubmit(evt.target.name.value, evt.target.email.value, evt.target.password.value);  
+    }
+
+    handleChangePassword(evt){
+        this.setState({
+          password : evt.target.value
+        })
+    }
+
+    handleChangeConfirm(evt){
+      if(this.state.password !== evt.target.value){
+        this.setState({
+            errorText : "Passwords must match."
+        })
+      }else{
+        this.setState({
+            errorText : "",
+            disabled : false
+        })
+      }
+    }
+   
+    render(){
+     return (
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <TextField
+              name="name"
+              hintText="Name"
+              floatingLabelText="Name"
+              defaultValue="First User"
+              onChange={this.handleChangeName}
+            /><br />
+            <br />
+            <TextField
+              name="email"
+              hintText="Email"
+              floatingLabelText="Email"
+              defaultValue="first@email.com"
+              onChange={this.handleChangeEmail}
+            /><br />
+            <br />
+            <TextField
+              name="password"
+              hintText="Password"
+              floatingLabelText="Password"
+              type="password"
+              onChange={this.handleChangePassword}
+            /><br />
+            <br />
+            <TextField
+              name="passwordConfirm"
+              hintText="Confirm Password"
+              floatingLabelText="Confirm Password"
+              type="password"
+              errorText={this.state.errorText}
+              onChange={this.handleChangeConfirm}
+            /><br />
+            <RaisedButton type="submit" value="signUp" label="Sign Up" style={style} disabled={this.state.disabled} />
+          </div>
+        </form>
+      );
+    }
+})
   
 
 
