@@ -9,6 +9,7 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
+import {Options} from './components/SignInOptions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -21,7 +22,7 @@ const ExampleApp = connect(
    
     <div>
       <nav>
-        {user ? <WhoAmI/> : <Login/>}
+        {user ? <WhoAmI/> : <Options/>}
       </nav> 
       {children}
     </div>
@@ -37,6 +38,7 @@ render (
           <Route path="/jokes" component={Jokes} />
         </Route>
         <Route path="/signup" component={SignUp} />
+        <Route path="/login" component={Login} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
