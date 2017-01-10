@@ -7,7 +7,8 @@ const seedUsers = () => db.Promise.map([
 
 const seedCategories = () => db.Promise.map([
 	{name: 'clothing'},
-	{name: 'food'}
+	{name: 'food'},
+	{name: 'accessories'}
 ])
 
 const seedProducts = () => db.Promise.map([
@@ -21,7 +22,7 @@ const seedProducts = () => db.Promise.map([
 	{name: 'Halo Spot\'s Stew', category_id: 2, imageUrl: 'images/halo.png', description: 'Wholesome, pure, and simple recipe for dogs. A complete and balanced formula.', price: 10.99, tags:["wet", "grain-free"]},
 	{name: 'Nutro', category_id: 2, imageUrl: 'images/nutro.jpeg', description: 'Provides a wholesome and delicious taste. Enhances skin and coat quality', price: 10.99, tags:["wet", "grain-free"]}
 
-	], user => db.model('foodProducts').create(foodProduct));
+	], user => db.model('Products').create(product));
 
 
 db.didSync
