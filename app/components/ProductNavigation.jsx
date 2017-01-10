@@ -1,8 +1,7 @@
 import React from 'react'
 
 import {GridList, GridTile} from 'material-ui/GridList'
-import IconButton from 'material-ui/IconButton'
-import StarBorder from 'material-ui/svg-icons/toggle/star-border'
+import Paper from 'material-ui/Paper';
 
 
 export default () => {
@@ -10,18 +9,25 @@ export default () => {
 const styles = {
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    alignItems: 'center',
+    margin: 'auto'
   },
   gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
-    cellHeight: '300px'
+    justifyContent: 'center',
+    cellHeight: 'auto' // this should workkkkk
+  },
+  gridTile: {// whyyyy height whyyyy
+      width: 'auto',
+      height: '400px',
+      margin: '5%'
   },
   titleStyle: {
-    color: 'rgb(0, 188, 212)',
-  }
+    color: '#FAFAFA',
+    fontSize: '1.2em'
+  },
+  paperStyle: {
+  margin: 'auto'
+}
 }
 
 const tilesData = [
@@ -45,17 +51,15 @@ const tilesData = [
 
 return (
   <div style={styles.root}>
-    <GridList style={styles.gridList} cols={4}>
+    <GridList id='categoryNav' style={styles.gridList} cols={4}>
       {tilesData.map((tile) => (
-        <GridTile
-          key={tile.title}
+        <Paper zDepth={4} key={tile.title} rounded={false} style={styles.gridTile}><GridTile
           title={tile.title}
-          actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
           titleStyle={styles.titleStyle}
-          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+          titleBackground='#FA8072'
         >
           <img src={tile.img} />
-        </GridTile>
+        </GridTile></Paper>
       ))}
     </GridList>
   </div>
