@@ -17,7 +17,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'nowrap',
     overflowX: 'auto',
-    cellHeight: '300px'
+    width: '100%'
   },
   titleStyle: {
     color: 'rgb(0, 188, 212)',
