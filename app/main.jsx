@@ -8,6 +8,7 @@ import store from './store'
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
+import Products from './components/Products'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -16,7 +17,7 @@ const ExampleApp = connect(
     <div>
       <nav>
         {user ? <WhoAmI/> : <Login/>}
-      </nav> 
+      </nav>
       {children}
     </div>
 )
@@ -28,6 +29,8 @@ render (
         <IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
       </Route>
+      <Route path="/products" component={Products} />
+      <Route path="/products/categories/:id" component={Products} />
     </Router>
   </Provider>,
   document.getElementById('main')
