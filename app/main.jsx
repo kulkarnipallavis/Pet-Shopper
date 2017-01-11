@@ -13,8 +13,6 @@ import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 
-injectTapEventPlugin();
-
 import Products from './components/Products'
 import Product from './components/Product'
 
