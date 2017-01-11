@@ -3,9 +3,10 @@ import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
-
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import store from './store'
-import Jokes from './components/Jokes'
+import LandingPage from './components/LandingPage'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
@@ -23,16 +24,18 @@ const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
-   
+
     <div>
       <nav>
         {user ? <WhoAmI/> : <Options/>}
-      </nav> 
+      </nav>
 
       {children}
     </div>
-   
+
 )
+
+injectTapEventPlugin()
 
 render (
 
@@ -48,9 +51,10 @@ render (
         <Route path="/products" component={Products} />
         <Route path="/products/:id" component={Product} />
       <Route path="/products/categories/:id" component={Products} />
+        <Route path="/" component={LandingPage} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
 
   document.getElementById('main')
-)
+  )
