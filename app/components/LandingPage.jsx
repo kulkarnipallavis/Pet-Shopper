@@ -11,16 +11,12 @@ export default class LandingPage extends Component {
   render() {
   	return (
   		<div>
-				<NavBar/>
-	  		<div id="container" style={{'backgroundImage': 'url(images/backgroundimage.jpg)', backgroundRepeat: 'repeat'}}>
-	  			<img src="/images/banner.jpeg" style={{'display': 'block', 'margin': 'auto'}}/>
-					<ProductNavigation />
-	  		</div>
-
+  		 <NavBar/>
+    		<div id="container" style={{'backgroundImage': 'url(images/backgroundimage.jpg)', backgroundRepeat: 'repeat'}}>
+    			<img src="/images/banner.jpeg" style={{'display': 'block', 'margin': 'auto'}}/>
+  			<ProductNavigation />
+    		</div>
   		</div>
-
-  	)
-
-}
-
+	 )
+  }
 }
