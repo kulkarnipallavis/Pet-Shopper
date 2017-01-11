@@ -12,7 +12,7 @@ export default class LandingPage extends Component {
   	return (
   		<div>
 				<NavBar/>
-	  		<div id="container" style={{'backgroundImage': 'url(http://www.lorispinsnneedles.com/images/fabric/cx5456_ebony_3.jpg)', backgroundRepeat: 'repeat'}}>
+	  		<div id="container" style={{'backgroundImage': 'url(images/backgroundimage.jpg)', backgroundRepeat: 'repeat'}}>
 	  			<img src="/images/banner.jpeg" style={{'display': 'block', 'margin': 'auto'}}/>
 					<ProductNavigation />
 	  		</div>
