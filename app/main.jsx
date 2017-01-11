@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import store from './store'
 import LandingPage from './components/LandingPage'
 import Login from './components/Login'
+import WhoAmI from './components/WhoAmI'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
