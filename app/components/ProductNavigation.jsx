@@ -20,7 +20,7 @@ const styles = {
   },
   gridTile: {// whyyyy height whyyyy
       width: 'auto',
-      height: '400px',
+      height: '100%',
       margin: '5%'
   },
   titleStyle: {
