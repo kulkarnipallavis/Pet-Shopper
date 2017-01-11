@@ -50,7 +50,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
         price: 15.99
       },
       {
-        id: 3,
+        id: 4,
         name: 'fourth',
         imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
         price: 56.99
@@ -61,7 +61,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
         {products.map(product => (
           <div key={product.id}>
             <div>{product.name}</div>
-            <img src={product.imageURL}></img>
+            <img style={{height: '150px', width: '150px'}} src={product.imageURL}></img>
             <div>{product.price}</div>
           </div>
         ))
