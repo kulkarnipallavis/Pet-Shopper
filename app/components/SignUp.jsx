@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {signUp} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
+import {signUp} from 'APP/app/reducers/auth';
+import {connect} from 'react-redux';
 
 const style = {
   button : {
