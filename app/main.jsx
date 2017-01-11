@@ -44,7 +44,6 @@ render (
         <Route path="/products" component={Products} />
         <Route path="/products/:id" component={Product} />
       <Route path="/products/categories/:id" component={Products} />
-        <Route path="/" component={LandingPage} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
