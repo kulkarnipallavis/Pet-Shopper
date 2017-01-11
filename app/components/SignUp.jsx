@@ -57,7 +57,8 @@ export default connect (null, mapDispatchToProps) (
     handleChangeConfirm(evt){
       if(this.state.password !== evt.target.value){
         this.setState({
-            errorText : "Passwords must match."
+            errorText : "Passwords must match.",
+            disabled: true
         })
       }else{
         this.setState({
