@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getProduct, getProducts} from '../reducers/products';
+import {GridList, GridTile} from 'material-ui/GridList';
 
 function mapStateToProps(state, ownProps) {
   console.log(state, ownProps);
@@ -30,6 +31,19 @@ export default connect (mapStateToProps, mapDispatchToProps) (
   render() {
     //if (!props.products.products.length) { return null }
     //const products = props.products.products;
+    const styles = {
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+      },
+      gridList: {
+        width: 500,
+        height: 450,
+        overflowY: 'auto',
+      },
+    };
+
     const products = [
       {
         id: 1,
@@ -50,7 +64,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
         price: 15.99
       },
       {
-        id: 3,
+        id: 4,
         name: 'fourth',
         imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
         price: 56.99
@@ -58,16 +72,31 @@ export default connect (mapStateToProps, mapDispatchToProps) (
     ]
     return (
       <div>
-        {products.map(product => (
-          <div key={product.id}>
-            <div>{product.name}</div>
-            <img src={product.imageURL}></img>
-            <div>{product.price}</div>
-          </div>
-        ))
-        }
+       <div style={styles.root}>
+        <GridList
+          cellHeight={180}
+          style={styles.gridList}
+        >
+          {products.map((product) => (
+            <GridTile
+              key={product.id}
+            >
+              <img src={product.imageURL} />
+            </GridTile>
+          ))}
+        </GridList>
       </div>
+    </div>
     )
   }
 }
 )
+
+//  {products.map(product => (
+//           <div key={product.id}>
+//             <div>{product.name}</div>
+//             <img style={{height: '150px', width: '150px'}} src={product.imageURL}></img>
+//             <div>{product.price}</div>
+//           </div>
+//         ))
+//         }
