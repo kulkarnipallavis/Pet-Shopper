@@ -34,22 +34,21 @@ export default () => {
 
   const tilesData = [
     {
-      img: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12108231_10156342670650105_8218991482164709564_n.jpg?oh=67f9780ae4aace86d4891616fb84af6e&oe=58DF96BA',
+      img: 'images/santahat.jpg',
       title: 'Clothing',
       author: 'Anna Brown',
     },
     {
-      img: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12108231_10156342670650105_8218991482164709564_n.jpg?oh=67f9780ae4aace86d4891616fb84af6e&oe=58DF96BA',
+      img: 'images/santahat.jpg',
       title: 'Accessories',
       author: 'Anna Brown',
     },
     {
-      img: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/12108231_10156342670650105_8218991482164709564_n.jpg?oh=67f9780ae4aace86d4891616fb84af6e&oe=58DF96BA',
+      img: 'images/santahat.jpg',
       title: 'Food',
       author: 'Anna Brown',
     }
   ];
-
 
   return (
     <div style={styles.root}>
