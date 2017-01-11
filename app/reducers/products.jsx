@@ -12,7 +12,7 @@ const reducer = (state=initialState, action) => {
     newState.products = action.products;
     break;
   case SET_PRODUCT:
-    newState.product = action.product;
+    newState.selectedProduct = action.product;
   }
   return newState;
 }

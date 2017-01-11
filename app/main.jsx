@@ -17,6 +17,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 import Products from './components/Products'
+import Product from './components/Product'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -45,6 +46,7 @@ render (
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/products" component={Products} />
+        <Route path="/products/:id" component={Product} />
       <Route path="/products/categories/:id" component={Products} />
       </Router>
     </Provider>
