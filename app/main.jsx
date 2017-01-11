@@ -38,10 +38,7 @@ render (
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={ExampleApp}>
-          <IndexRedirect to="/jokes" />
-          <Route path="/jokes" component={Jokes} />
-        </Route>
+        <Route path="/" component={LandingPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/products" component={Products} />
