@@ -4,6 +4,7 @@ import {getProduct, getProducts, setProduct} from '../reducers/products';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import {Link} from 'react-router'
+import NavBar from './NavBar'
 
 function mapStateToProps(state, ownProps) {
   console.log(state, ownProps);
@@ -114,6 +115,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
     // this.props.products.products = products;
     return (
       <div>
+      <NavBar />
        <div style={styles.root}>
         <GridList
           cellHeight={'auto'}

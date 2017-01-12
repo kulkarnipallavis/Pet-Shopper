@@ -4,6 +4,7 @@ import {getProduct, getProducts, setProduct} from '../reducers/products';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import NavBar from './NavBar'
 
 function mapStateToProps(state, ownProps) {
   return { products: state.products }
@@ -46,6 +47,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
     const product = this.props.products.selectedProduct
     return (
       <div>
+      <NavBar />
        <div style={styles.root} >
           <Paper style={{height: 'auto', width: '40%', margin : '20px'}} zDepth={2} >
              <img src={product.imageURL } style={{width: '100%', height: 'auto', display:'block', margin:'auto'}}/>
@@ -57,6 +59,9 @@ export default connect (mapStateToProps, mapDispatchToProps) (
               </div>
               <div style={{textAlign:'center'}}> 
                 {product.description}
+              </div>
+               <div style={{textAlign:'center'}}> 
+                {product.tags && product.tags.join(', ')}
               </div>
               <div style={{textAlign:'center'}}> 
                 ${product.price}
