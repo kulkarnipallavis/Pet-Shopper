@@ -17,7 +17,5 @@ describe('Category', () => {
     it('has a name property', () =>{
       expect(clothing.name).to.equal("clothing");
     })
-
-
   })
 })
