@@ -47,7 +47,6 @@ describe('Product', () => {
         ])
     })
      
-  
     it('finds all products with a particular tag', () => {
       Product.findByTag('sweater')
       .then(products => {
@@ -70,9 +69,5 @@ describe('Product', () => {
       })
     })
   })
-
 })
-
-
-
 
