@@ -4,19 +4,16 @@ import {getProduct, getProducts, setProduct} from '../reducers/products';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import NavBar from './NavBar'
 
 function mapStateToProps(state, ownProps) {
-  console.log(state, ownProps);
   return { products: state.products }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getProductsDispatch: function(specification) {
-      dispatch(getProducts(specification));
-    },
-    setProductDispatch : function(product){
-      dispatch(setProduct(product));
+    getProductDispatch: function(id) {
+      dispatch(getProduct(id));
     }
   }
 }
@@ -27,19 +24,14 @@ export default connect (mapStateToProps, mapDispatchToProps) (
       this.state = {
       }
       this.handleClick = this.handleClick.bind(this);
-      console.log(props);
-      // if (props.route.path === '/products/categories/:id') props.getProductsDispatch({category_id: props.routeParams.id});
-      // props.getProductsDispatch();
+      props.getProductDispatch(props.routeParams.id);
     }
 
   handleClick(index){
-    console.log("^^^^^^^^^", index);
     this.props.setProductDispatch(this.props.products.products[index]);
   }
 
   render() {
-    //if (!props.products.products.length) { return null }
-    //const products = props.products.products;
     const styles = {
       root: {
         display: 'flex',
@@ -55,6 +47,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
     const product = this.props.products.selectedProduct
     return (
       <div>
+      <NavBar />
        <div style={styles.root} >
           <Paper style={{height: 'auto', width: '40%', margin : '20px'}} zDepth={2} >
              <img src={product.imageURL } style={{width: '100%', height: 'auto', display:'block', margin:'auto'}}/>
@@ -66,6 +59,9 @@ export default connect (mapStateToProps, mapDispatchToProps) (
               </div>
               <div style={{textAlign:'center'}}> 
                 {product.description}
+              </div>
+               <div style={{textAlign:'center'}}> 
+                {product.tags && product.tags.join(', ')}
               </div>
               <div style={{textAlign:'center'}}> 
                 ${product.price}
