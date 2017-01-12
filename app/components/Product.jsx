@@ -63,10 +63,10 @@ export default connect (mapStateToProps, mapDispatchToProps) (
               <div style={{textAlign:'center', color:'green'}}>
                 <h4>In Stock.</h4>
               </div>
-              <div style={{textAlign:'left'}}>
+              <div style={{textAlign:'left', paddingLeft: '10px', paddingRight: '10px'}}>
                 {product.description}
               </div>
-               <div style={{textAlign:'left', marginTop: '15px'}}>
+               <div style={{textAlign:'left', marginTop: '15px', paddingLeft: '10px', paddingRight: '10px'}}>
                 {product.tags && ('Tags: ' + product.tags.join(', '))}
               </div>
               <div style={{textAlign:'center'}}>
