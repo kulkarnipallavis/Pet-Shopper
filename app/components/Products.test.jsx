@@ -37,7 +37,6 @@ describe('<Products/>', () => {
 	 expect(root.find('#gridlist')).to.have.length(1)
 	})
   it('renders the products', () => {
-	 	// console.log("&&&&&&&&&&&&&",root);
 	 	expect(root.find('#product-image')).to.have.length(1);
 	 })
 
