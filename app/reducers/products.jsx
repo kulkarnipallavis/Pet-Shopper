@@ -30,7 +30,6 @@ export const setProduct = product => ({
 })
 
 export const getProducts = (type, info) => {
-  console.log(type, info)
   if (!type) return dispatch =>
     axios.get('/api/products')
       .then(response => {

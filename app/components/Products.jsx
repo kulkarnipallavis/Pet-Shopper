@@ -7,7 +7,6 @@ import {Link} from 'react-router'
 import NavBar from './NavBar'
 
 function mapStateToProps(state, ownProps) {
-  console.log(state, ownProps);
   return { products: state.products }
 }
 
@@ -21,14 +20,13 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-export default connect (mapStateToProps, mapDispatchToProps) (
-  class Products extends Component {
+
+export class Products extends Component {
   constructor(props){
       super();
       this.state = {
       }
       this.handleClick = this.handleClick.bind(this);
-      console.log(props.routeParams.id);
       if (props.route.path === '/products/categories/:id') props.getProductsDispatch('category', props.routeParams.id);
       else props.getProductsDispatch();
 
@@ -113,10 +111,12 @@ export default connect (mapStateToProps, mapDispatchToProps) (
     //   }
     // ]
     // this.props.products.products = products;
+   
+   
     return (
       <div>
       <NavBar />
-       <div style={styles.root}>
+       <div style={styles.root} id="gridlist">
         <GridList
           cellHeight={'auto'}
           style={styles.gridList}
@@ -131,8 +131,8 @@ export default connect (mapStateToProps, mapDispatchToProps) (
             <Link to={`/products/${product.id}`}>
               <Paper style={{maxWidth: '250px', height: '200px', width: 'auto', margin : '20px'}} zDepth={2} >
                 <div>
-                  <img src={product.imageURL } style={{maxHeight: '150px', width: 'auto', display:'block', margin:'auto'}}/>
-                  <div style={{textAlign:'center'}}>
+                  <img id='product-image' src={product.imageURL } style={{maxHeight: '150px', width: 'auto', display:'block', margin:'auto'}}/>
+                  <div id='product-name' style={{textAlign:'center'}}>
                     {product.name}
                   </div>
                   <div style={{textAlign:'center'}}>
@@ -147,6 +147,9 @@ export default connect (mapStateToProps, mapDispatchToProps) (
       </div>
     </div>
     )
+
+
   }
 }
-)
+
+export default connect (mapStateToProps, mapDispatchToProps) (Products)
