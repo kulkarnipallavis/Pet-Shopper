@@ -29,18 +29,21 @@ export const setProduct = product => ({
   product
 })
 
-export const getProducts = (specification) => {
+export const getProducts = () =>
   dispatch =>
-    axios.get('/api/products',
-      specification)
-      .then((res) => dispatch(setProducts(res.data)));
-}
+    axios.get('/api/products')
+      .then(response => {
+        const products = response.data
+        dispatch(setProducts(products))
+})
+      
+export const getProduct = (id) =>
+  dispatch =>
+    axios.get(`/api/products/${id}`)
+      .then(response => {
+        const product = response.data
+        dispatch(setProduct(product))
+})
 
-export const getProduct = (id) => {
-  dispatch =>
-    axios.get(`/api/product/${id}`,
-      specification)
-      .then((res) => dispatch(setProduct(res.data)));
-}
 
 export default reducer;

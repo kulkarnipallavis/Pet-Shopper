@@ -28,18 +28,18 @@ export default connect (mapStateToProps, mapDispatchToProps) (
       }
       this.handleClick = this.handleClick.bind(this);
       console.log(props);
-      // if (props.route.path === '/products/categories/:id') props.getProductsDispatch({category_id: props.routeParams.id});
-      // props.getProductsDispatch();
+      if (props.route.path === '/products/categories/:id') props.getProductsDispatch({category_id: props.routeParams.id});
+      else props.getProductsDispatch();
+
     }
 
   handleClick(index){
-    console.log("^^^^^^^^^", index);
     this.props.setProductDispatch(this.props.products.products[index]);
   }
 
   render() {
     //if (!props.products.products.length) { return null }
-    //const products = props.products.products;
+    const products = this.props.products.products;
     const styles = {
       root: {
         display: 'flex',
@@ -53,65 +53,65 @@ export default connect (mapStateToProps, mapDispatchToProps) (
       },
     };
 
-    const products = [
-      {
-        id: 1,
-        name: 'first',
-        imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
-        price: 5.99,
-        description : 'first product description'
-      },
-      {
-        id: 2,
-        name: '2nd',
-        imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
-        price: 53.99,
-        description : 'second product description'
-      },
-      {
-        id: 3,
-        name: '3rd',
-        imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
-        price: 15.99,
-        description : 'third product description'
-      },
-      {
-        id: 4,
-        name: 'fourth',
-        imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
-        price: 56.99,
-        description : 'fourth product description'
-      },
-      {
-        id: 5,
-        name: 'first',
-        imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
-        price: 5.99,
-        description : 'fifth product description'
-      },
-      {
-        id: 6,
-        name: '2nd',
-        imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
-        price: 53.99,
-        description : 'sixth product description'
-      },
-      {
-        id: 7,
-        name: '3rd',
-        imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
-        price: 15.99,
-        description : 'seventh product description'
-      },
-      {
-        id: 8,
-        name: 'fourth',
-        imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
-        price: 56.99,
-        description : 'eighth product description'
-      }
-    ]
-    this.props.products.products = products;
+    // const products = [
+    //   {
+    //     id: 1,
+    //     name: 'first',
+    //     imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
+    //     price: 5.99,
+    //     description : 'first product description'
+    //   },
+    //   {
+    //     id: 2,
+    //     name: '2nd',
+    //     imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
+    //     price: 53.99,
+    //     description : 'second product description'
+    //   },
+    //   {
+    //     id: 3,
+    //     name: '3rd',
+    //     imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
+    //     price: 15.99,
+    //     description : 'third product description'
+    //   },
+    //   {
+    //     id: 4,
+    //     name: 'fourth',
+    //     imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
+    //     price: 56.99,
+    //     description : 'fourth product description'
+    //   },
+    //   {
+    //     id: 5,
+    //     name: 'first',
+    //     imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
+    //     price: 5.99,
+    //     description : 'fifth product description'
+    //   },
+    //   {
+    //     id: 6,
+    //     name: '2nd',
+    //     imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
+    //     price: 53.99,
+    //     description : 'sixth product description'
+    //   },
+    //   {
+    //     id: 7,
+    //     name: '3rd',
+    //     imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
+    //     price: 15.99,
+    //     description : 'seventh product description'
+    //   },
+    //   {
+    //     id: 8,
+    //     name: 'fourth',
+    //     imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
+    //     price: 56.99,
+    //     description : 'eighth product description'
+    //   }
+    // ]
+    // this.props.products.products = products;
     return (
       <div>
        <div style={styles.root}>
@@ -120,13 +120,13 @@ export default connect (mapStateToProps, mapDispatchToProps) (
           style={styles.gridList}
           cols={3}
         >
-          {products.map((product, index) => (
+          {products && products.map((product, index) => (
             <GridTile
               key={product.id} 
               value={index} 
               onClick={()=>this.handleClick(index)}
             >
-            <Link to={`/products/:${product.id}`}>
+            <Link to={`/products/${product.id}`}>
               <Paper style={{maxWidth: '250px', height: '200px', width: 'auto', margin : '20px'}} zDepth={2} >
                 <div>
                   <img src={product.imageURL } style={{maxHeight: '150px', width: 'auto', display:'block', margin:'auto'}}/>
