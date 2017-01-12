@@ -133,6 +133,7 @@ auth.post('/logout', (req, res, next) => {
 })
 
 auth.post('/signup', (req, res, next) => {
+  console.log(req.user, 'signup route')
   User.findOne({
     where: {
       email: req.body.email
