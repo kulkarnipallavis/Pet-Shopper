@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('APP/db')
-const Order = db.model('order')
+const Order = db.model('orders')
 
 const router = require('express').Router()
 
@@ -54,8 +54,11 @@ router.post('/', (req, res, next) => {
 		}
 	}
 
-	req.session.order = {total : 1}
+	req.session.order = {userId: req.user.id, products: req.body.products, total: req.body.total}
+
 })
+
+module.exports = router;
 
 //delete active order?
 // router.delete('/', (req, res, next) => {
