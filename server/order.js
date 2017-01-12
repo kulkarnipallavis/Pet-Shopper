@@ -5,8 +5,8 @@ const Order = db.model('order')
 
 const router = require('express').Router()
 
-//get current active order
-app.param('activeOrder', function(req, res, next, id) {
+//get current active order and place on req.activeOrder
+router.param('activeOrder', function(req, res, next, id) {
 	Order.findOne({
 		where: {
 			id: req.user.id,
@@ -23,9 +23,8 @@ app.param('activeOrder', function(req, res, next, id) {
 })
 
 router.get('/', (req, res, next) => {
-	//Order find assoc. products
+	//Order instanceMethod that fetches products
 	req.activeOrder.fetchProducts()
-	// send all products
 	.then(products => {
 		res.send(products)
 	})
@@ -35,8 +34,7 @@ router.get('/', (req, res, next) => {
 //create or modify an order
 router.post('/', (req, res, next) => {
 	if(req.activeOrder) {
-		Order.findById(req.activeOrder.id)
-		.then(order => order.Update({
+		req.activeOrder.Update({
 			products: req.body.products
 		})
 		.then(updatedOrder => {
@@ -52,7 +50,14 @@ router.post('/', (req, res, next) => {
 		.then(products => res.status(201).send(products))
 		.catch()
 	}
-	
 })
 
-//delete active order
+//delete active order?
+// router.delete('/', (req, res, next) => {
+// 	req.activeOrder.Delete()
+// 	.then(()=> res.status(200).send())
+// } )
+
+
+
+
