@@ -82,6 +82,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(
   (id, done) => {
+    console.log("here is id", id);
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
@@ -130,6 +131,26 @@ auth.post('/logout', (req, res, next) => {
   req.logout()
   res.redirect('/api/auth/whoami')
 })
+
+auth.post('/signup', (req, res, next) => {
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+  .then(user => {
+    if(user){
+      res.status(409).send('User already exists');
+    } else {
+      return User.create(req.body)
+    }
+  })
+  .then(newUser => {
+    res.sendStatus(201);
+  })
+  .catch(next);
+}
+)
 
 module.exports = auth
 
