@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Product = require('./product')
 
 const Order = db.define('orders', {
 	products: {
@@ -8,6 +9,12 @@ const Order = db.define('orders', {
 	status: {
 		type: Sequelize.ENUM,
 		values: ['active', 'pending', 'complete']
+	}
+}, {
+	instanceMethods: {
+		fetchProducts: function() {
+			return this.products.Map(el => Product.findById(el))
+		}
 	}
 })
 
