@@ -8,18 +8,15 @@ describe('Category', () => {
   before('wait for the db', () => db.didSync)
 
   describe('properties', () => {
-    const clothing = {
-      name: 'clothing'
-    }
-    it('has the correct properties', () =>
-      {
-        Category.create(clothing)
-        .then(category => {
-          expect(category).to.deep.equal(clothing);
-        })
-      }
-      )
+    let clothing
 
-
+    beforeEach(function () {
+      clothing = Category.build({name: 'clothing'})
+    })
+    
+    it('has a name property', () =>{
+      expect(clothing.name).to.equal("clothing");
+    })
   })
 })
+
