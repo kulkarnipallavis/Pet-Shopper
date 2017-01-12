@@ -29,14 +29,22 @@ export const setProduct = product => ({
   product
 })
 
-export const getProducts = () =>
-  dispatch =>
+export const getProducts = (type, info) => {
+  console.log(type, info)
+  if (!type) return dispatch =>
     axios.get('/api/products')
       .then(response => {
         const products = response.data
         dispatch(setProducts(products))
-})
-      
+  })
+  if (type === 'category') return dispatch =>
+    axios.get(`/api/categories/${info}`)
+      .then(response => {
+        const products = response.data
+        dispatch(setProducts(products))
+  })
+}
+
 export const getProduct = (id) =>
   dispatch =>
     axios.get(`/api/products/${id}`)

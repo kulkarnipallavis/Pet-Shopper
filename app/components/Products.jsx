@@ -13,8 +13,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getProductsDispatch: function(specification) {
-      dispatch(getProducts(specification));
+    getProductsDispatch: function(type, info) {
+      dispatch(getProducts(type, info));
     },
     setProductDispatch : function(product){
       dispatch(setProduct(product));
@@ -28,8 +28,8 @@ export default connect (mapStateToProps, mapDispatchToProps) (
       this.state = {
       }
       this.handleClick = this.handleClick.bind(this);
-      console.log(props);
-      if (props.route.path === '/products/categories/:id') props.getProductsDispatch({category_id: props.routeParams.id});
+      console.log(props.routeParams.id);
+      if (props.route.path === '/products/categories/:id') props.getProductsDispatch('category', props.routeParams.id);
       else props.getProductsDispatch();
 
     }
@@ -124,18 +124,18 @@ export default connect (mapStateToProps, mapDispatchToProps) (
         >
           {products && products.map((product, index) => (
             <GridTile
-              key={product.id} 
-              value={index} 
+              key={product.id}
+              value={index}
               onClick={()=>this.handleClick(index)}
             >
             <Link to={`/products/${product.id}`}>
               <Paper style={{maxWidth: '250px', height: '200px', width: 'auto', margin : '20px'}} zDepth={2} >
                 <div>
                   <img src={product.imageURL } style={{maxHeight: '150px', width: 'auto', display:'block', margin:'auto'}}/>
-                  <div style={{textAlign:'center'}}> 
+                  <div style={{textAlign:'center'}}>
                     {product.name}
                   </div>
-                  <div style={{textAlign:'center'}}> 
+                  <div style={{textAlign:'center'}}>
                     ${product.price}
                   </div>
                 </div>
