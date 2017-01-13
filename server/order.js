@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
 	if (req.user) {
 		if(req.activeOrder) {
 			req.activeOrder.Update({
-				products: req.body.products
+				product: req.body.product
 			})
 		.then(updatedOrder => {
 			return updatedOrder.fetchProducts()

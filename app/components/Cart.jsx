@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router';
 
 import Navbar from './NavBar';
@@ -10,7 +10,34 @@ import Subheader from 'material-ui/Subheader';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const styles = {
+import {deleteFromOrder} from '../reducers/cart';
+
+
+const mapStateToProps = (state) => {
+  return {products : state.products}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteFromOrderDispatch: (id) => {
+      dispatch(deleteFromOrder(id))
+    }
+  }
+}
+
+export class Cart extends Component {
+
+constructor(props) {
+  super(props);
+  this.handleClick = this.handleClick.bind(this);
+}
+
+handleClick(index){
+  this.props.deleteFromOrderDispatch(index);
+}
+
+render() { 
+  const styles = {
   button : {
     margin: 20
   },
@@ -40,7 +67,28 @@ const styles = {
   }
 }
 
-export const Cart = () => {
+const products = [
+      {
+        id: 1,
+        name: 'first',
+        imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
+        price: 5.99,
+        description : 'first product description'
+      },
+      {
+        id: 2,
+        name: '2nd',
+        imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
+        price: 53.99,
+        description : 'second product description'
+      },
+      {
+        id: 3,
+        name: '3rd',
+        imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
+        price: 10.99
+      }
+      ]
   return (
     <div>
       <Navbar />
@@ -50,9 +98,9 @@ export const Cart = () => {
         <Paper zDepth={1}>
           <Subheader style={ styles.subheadings }>Cart</Subheader>
           <List>
-            <ListItem primaryText="Hello" leftAvatar={<img src="images/buffaloblue.jpeg" style={{'height':'70%', 'width':'2%'}} />} rightIcon={<ClearIcon/>}/>
-            <Divider/>
-            <ListItem primaryText="Hello" leftAvatar={<img src="images/buffaloblue.jpeg" style={{'height':'70%', 'width':'2%'}} />} rightIcon={<ClearIcon/>}/>
+          {products && products.map((product, index) => (
+            <ListItem key={product.id} primaryText={product.name} rightIcon={<ClearIcon onClick={() => this.handleClick(index)}/>}/>
+            ))}
           </List>
         </Paper>
         </div>
@@ -69,14 +117,12 @@ export const Cart = () => {
       </Paper>
       </div>
     </div>
-  )
+    )
+  }
 }
 
 
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
-export default connect (
-  state => ({}),
-  {},
-) (Cart)
+export default connect (mapStateToProps, mapDispatchToProps) (Cart)
