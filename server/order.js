@@ -5,18 +5,29 @@ const Order = db.model('orders')
 
 const router = require('express').Router()
 
+router.use('/', (req, res, next) => {
+	if (!req.session.order) req.session.order = {
+		userId: null,
+		products: [],
+		status: 'active',
+		total: 0.00,
+		totalItems: 0
+	};
+	next();
+})
+
 //get current active order and place on req.activeOrder
 router.param('activeOrder', function(req, res, next) {
 	Order.findOne({
 		where: {
-			id: req.user.id,
+			user_id: req.user.id,
 			status: 'active'
 		}
 	})
 	.then(order => {
 		if (!order) next();
 		req.activeOrder = order;
-		next ();
+		next();
 		return null;
 	})
 	.catch(next);
@@ -34,27 +45,29 @@ router.get('/', (req, res, next) => {
 
 //create or modify an order
 router.post('/', (req, res, next) => {
+	req.session.order.products = [...req.session.order.products, req.body.product];
+	req.session.order.total = req.body.total;
+	req.session.order.totalItems = req.session.order.products.length;
 	if (req.user) {
-		if(req.activeOrder) {
-			req.activeOrder.Update({
-				products: req.body.products
+		req.session.order.userId = req.user.id;
+		if (req.activeOrder) {
+			req.activeOrder.update({
+				products: [...req.activeOrder.products, req.body.product.id],
+				total: req.body.total
 			})
-		.then(updatedOrder => {
-			return updatedOrder.fetchProducts()
+		.then(() => {
+			 res.status(204).send(req.session.order);
 		})
-		.then(products => res.status(204).send(products))
 		.catch()
 		} else {
-		Order.Create(req.body)
-		.then(order => {
-			return order.fetchProducts()
+		Order.create(req.body)
+		.then(() => {
+			res.status(201).send(req.session.order);
 		})
-		.then(products => res.status(201).send(products))
 		.catch()
 		}
 	}
-
-	req.session.order = {userId: req.user.id, products: req.body.products, total: req.body.total}
+	else res.send(req.session.order);
 
 })
 
