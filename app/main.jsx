@@ -34,7 +34,7 @@ render (
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={LandingPage}>
+        <Route path="/" component={LandingPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Router>
