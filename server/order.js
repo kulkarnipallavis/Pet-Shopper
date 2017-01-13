@@ -35,17 +35,20 @@ router.param('activeOrder', function(req, res, next) {
 
 
 router.get('/', (req, res, next) => {
-	//Order instanceMethod that fetches products
-	req.activeOrder.fetchProducts()
-	.then(products => {
-		res.send(products)
-	})
-	.catch(next);
+	if (req.user && req.session.order.products.length === 0 && req.activeOrder) {
+		req.session.order.products = req.activeOrder.products;
+		req.session.order.userId = req.activeOrder.user_id;
+		req.session.order.totalItems = req.activeOrder.totalItems;
+		req.session.order.total = req.activeOrder.total;
+		res.send(req.session.order);
+
+	}
+	else res.send(req.session.order);
 })
 
 //create or modify an order
 router.post('/', (req, res, next) => {
-	req.session.order.products = [...req.session.order.products, req.body.product];
+	req.session.order.products = [...req.session.order.products, req.body.product.id];
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length;
 	if (req.user) {
@@ -68,8 +71,26 @@ router.post('/', (req, res, next) => {
 		}
 	}
 	else res.send(req.session.order);
+})
+
+router.post('/delete', (req, res, next) => {
+	const index = req.session.order.products.indexOf(req.body.product.id);
+	req.session.order.products.splice(index, 1);
+	req.session.order.total = req.body.total;
+	req.session.order.totalItems = req.session.order.products.length;
+
+	if (req.activeOrder) {
+		req.activeOrder.update({
+			products: req.session.products,
+			total: req.body.total
+		})
+		.then(() => {})
+		.catch();
+	}
+	res.status(204).send(req.session.order);
 
 })
+
 
 module.exports = router;
 
