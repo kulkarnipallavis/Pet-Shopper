@@ -40,6 +40,7 @@ router.get('/', (req, res, next) => {
 		req.session.order.userId = req.activeOrder.user_id;
 		req.session.order.totalItems = req.activeOrder.totalItems;
 		req.session.order.total = req.activeOrder.total;
+		
 		res.send(req.session.order);
 
 	}
@@ -94,11 +95,7 @@ router.post('/delete', (req, res, next) => {
 
 module.exports = router;
 
-//delete active order?
-// router.delete('/', (req, res, next) => {
-// 	req.activeOrder.Delete()
-// 	.then(()=> res.status(200).send())
-// } )
+
 
 
 
