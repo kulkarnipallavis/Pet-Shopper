@@ -1,10 +1,13 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import DropDownProducts from './DropDownProducts';
 
-/**
- * A simple example of `AppBar` with an icon on the right.
- * By default, the left icon is a navigation-menu.
- */
+// browse products popover dropdown menu
+// search products dropdown
+// logo/title?
+// login/signup  or logout
+// cart
+
 const NavBar = () => {
   const titleStyles = {
   title: {
@@ -18,12 +21,14 @@ const NavBar = () => {
     color: '#FAFAFA'
   }
 };
+
+//iconClassNameRight="muidocs-icon-navigation-expand-more"
   return (
   <AppBar
-    title="Title"
+    title="Teenie and Friends?"
     style={titleStyles.barColor}
     titleStyle={titleStyles.titleColor}
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    iconElementLeft= {<DropDownProducts/>}
   />
   )
 };

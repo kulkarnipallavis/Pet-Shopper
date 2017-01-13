@@ -12,22 +12,18 @@ import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
-   
+
     <div>
       <nav>
         {user ? <WhoAmI/> : <Options/>}
-      </nav> 
+      </nav>
       {children}
     </div>
-   
+
 )
 
 injectTapEventPlugin()
@@ -36,10 +32,6 @@ render (
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={ExampleApp}>
-          <IndexRedirect to="/jokes" />
-          <Route path="/jokes" component={Jokes} />
-        </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/" component={LandingPage} />
