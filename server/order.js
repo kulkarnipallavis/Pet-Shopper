@@ -17,47 +17,60 @@ router.use('/', (req, res, next) => {
 })
 
 //get current active order and place on req.activeOrder
-router.param('activeOrder', function(req, res, next) {
-	Order.findOne({
-		where: {
-			user_id: req.user.id,
-			status: 'active'
-		}
-	})
-	.then(order => {
-		if (!order) next();
-		req.activeOrder = order;
+router.use(function(req, res, next) {
+	if (req.user && req.session.order.products.length === 0) {
+		Order.findOne({
+			where: {
+				user_id: req.user.id,
+				status: 'active'
+			}
+		})
+		.then(order => {
+			if (order) {
+				req.activeOrder = order;
+				next();
+				return null;
+			} else {
+				req.activeOrder = req.session.order;
+				next();
+			}
+		})
+		.catch(console.log("no order found"));
+	} else {
+		req.activeOrder = req.session.order;
 		next();
-		return null;
-	})
-	.catch(next);
+	}
 })
 
 
 router.get('/', (req, res, next) => {
-	if (req.user && req.session.order.products.length === 0 && req.activeOrder) {
-		req.session.order.products = req.activeOrder.products;
-		req.session.order.userId = req.activeOrder.user_id;
-		req.session.order.totalItems = req.activeOrder.totalItems;
-		req.session.order.total = req.activeOrder.total;
-		
-		res.send(req.session.order);
+	res.send(req.activeOrder);
+	// if (req.user && req.session.order.products.length === 0 && req.activeOrder) {
+	// 	req.session.order.products = req.activeOrder.products;
+	// 	req.session.order.userId = req.activeOrder.user_id;
+	// 	req.session.order.totalItems = req.activeOrder.totalItems;
+	// 	req.session.order.total = req.activeOrder.total;
 
-	}
-	else res.send(req.session.order);
+	// 	res.send(req.session.order);
+
+	// }
+	// else {
+	// 	res.send(req.session.order);
+	// }
 })
 
 //create or modify an order
 router.post('/', (req, res, next) => {
-	req.session.order.products = [...req.session.order.products, req.body.product.id];
+	req.session.order.products = req.session.order.products.concat([req.body.product.id]);
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length;
 	if (req.user) {
 		req.session.order.userId = req.user.id;
 		if (req.activeOrder) {
 			req.activeOrder.update({
-				products: [...req.activeOrder.products, req.body.product.id],
-				total: req.body.total
+				products: req.activeOrder.products.concat([req.body.product.id]),
+				total: req.body.total,
+				totalItems: req.session.order.totalItems
 			})
 		.then(() => {
 			 res.status(204).send(req.session.order);
@@ -83,7 +96,8 @@ router.post('/delete', (req, res, next) => {
 	if (req.activeOrder) {
 		req.activeOrder.update({
 			products: req.session.products,
-			total: req.body.total
+			total: req.body.total,
+			totalItems: req.session.order.totalItems
 		})
 		.then(() => {})
 		.catch();
