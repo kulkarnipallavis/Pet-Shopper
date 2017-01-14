@@ -129,6 +129,7 @@ auth.post('/:strategy/login', (req, res, next) =>
 
 auth.post('/logout', (req, res, next) => {
   req.logout()
+  delete req.session.order
   res.redirect('/api/auth/whoami')
 })
 
@@ -150,8 +151,7 @@ auth.post('/signup', (req, res, next) => {
     res.sendStatus(201);
   })
   .catch(next);
-}
-)
+})
 
 module.exports = auth
 
