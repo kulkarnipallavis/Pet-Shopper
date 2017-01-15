@@ -20,10 +20,12 @@ const NavBar = () => {
 };
   return (
   <AppBar
-    title="Title"
     style={titleStyles.barColor}
     titleStyle={titleStyles.titleColor}
     iconClassNameRight="muidocs-icon-navigation-expand-more"
+    iconElementLeft = {
+      <img src="/images/logo.jpg"/>
+    }
   />
   )
 };
