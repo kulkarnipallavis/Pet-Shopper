@@ -22,14 +22,6 @@ const Order = db.define('orders', {
 			return this.products.map(el => Product.findById(el))
 		}
 	}
-	// hooks: {
-	// 	beforeCreate: function(order) {
-	// 	  order.totalItems = order.products.length;
-	// 	},
-	// 	beforeUpdate: function(order) {
-	// 	  order.totalItems = order.products.length;
-	// 	}
-	// }
 })
 
 
