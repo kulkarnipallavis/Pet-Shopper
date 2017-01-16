@@ -34,20 +34,24 @@ export const setSelectedProduct = selectedProduct => ({
 })
 
 //THUNK ACTIONS
-export const getAllProducts = (type, info) => {
-  if (!type) return dispatch =>
+// This is a weird API.
+// getAllProducts()
+// getAllProducts('category', 2)
+export const getAllProducts =
+  () => dispatch =>
     axios.get('/api/products')
       .then(response => {
         const allProducts = response.data
         dispatch(setAllProducts(allProducts))
-  })
-  if (type === 'category') return dispatch =>
-    axios.get(`/api/categories/${info}`)
+      })
+
+export const getProductsInCategory =
+  categoryId => dispatch =>
+    axios.get(`/api/categories/${categoryId}`)
       .then(response => {
         const allProducts = response.data
         dispatch(setAllProducts(allProducts))
-  })
-}
+      })
 
 export const getSelectedProduct = (id) =>
   dispatch =>
