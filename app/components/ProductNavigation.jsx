@@ -34,17 +34,17 @@ export default () => {
 
   const tilesData = [
     {
-      img: 'images/santahat.jpg',
+      img: 'images/clothing/beecostume.jpg',
       title: 'Clothing',
       author: 'Anna Brown',
     },
     {
-      img: 'images/santahat.jpg',
+      img: 'images/accessories/tie.jpg',
       title: 'Accessories',
       author: 'Anna Brown',
     },
     {
-      img: 'images/santahat.jpg',
+      img: 'images/food/stellaandchewys.jpg',
       title: 'Food',
       author: 'Anna Brown',
     }
