@@ -1,55 +1,60 @@
 import axios from 'axios'
 
 const initialState = {
-  products: [],
+  allProducts: [],
   selectedProduct: {}
 }
 
 const reducer = (state=initialState, action) => {
   const newState = Object.assign({}, state);
   switch(action.type) {
-  case SET_PRODUCTS:
-    newState.products = action.products;
+  case SET_ALL_PRODUCTS:
+    newState.allProducts = action.allProducts;
     break;
-  case SET_PRODUCT:
-    newState.selectedProduct = action.product;
+  case SET_SINGLE_PRODUCT:
+    newState.selectedProduct = action.selectedProduct;
   }
   return newState;
 }
 
-const SET_PRODUCTS = 'SET_PRODUCTS'
-export const setProducts = products => ({
-  type: SET_PRODUCTS,
-  products
+//CONSTANTS
+const SET_ALL_PRODUCTS = 'SET_ALL_PRODUCTS';
+const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT';
+const ADD_TO_CART = 'ADD_TO_CART';
+
+//ACTIONS
+export const setAllProducts = allProducts => ({
+  type: SET_ALL_PRODUCTS,
+  allProducts
 })
 
-const SET_PRODUCT = 'SET_PRODUCT'
-export const setProduct = product => ({
-  type: SET_PRODUCT,
-  product
+export const setSelectedProduct = selectedProduct => ({
+  type: SET_SINGLE_PRODUCT,
+  selectedProduct
 })
 
-export const getProducts = (type, info) => {
+//THUNK ACTIONS
+export const getAllProducts = (type, info) => {
   if (!type) return dispatch =>
     axios.get('/api/products')
       .then(response => {
-        const products = response.data
-        dispatch(setProducts(products))
+        const allProducts = response.data
+        dispatch(setAllProducts(allProducts))
   })
   if (type === 'category') return dispatch =>
     axios.get(`/api/categories/${info}`)
       .then(response => {
-        const products = response.data
-        dispatch(setProducts(products))
+        const allProducts = response.data
+        dispatch(setAllProducts(allProducts))
   })
 }
 
-export const getProduct = (id) =>
+export const getSelectedProduct = (id) =>
   dispatch =>
     axios.get(`/api/products/${id}`)
       .then(response => {
-        const product = response.data
-        dispatch(setProduct(product))
+        const selectedProduct = response.data
+        dispatch(setSelectedProduct(selectedProduct))
 })
 
 
