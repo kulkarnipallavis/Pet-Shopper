@@ -14,8 +14,11 @@ import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 import Products from './components/Products'
 import Product from './components/Product'
+import {Checkout} from './components/Checkout'
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
+
+
 
 injectTapEventPlugin()
 
@@ -36,7 +39,8 @@ render (
         <Route path="/login" component={Login} />
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-      <Route path="/products/categories/:id" component={Products} />
+        <Route path="/products/categories/:id" component={Products} />
+        <Route path="/checkout" component={Checkout} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
