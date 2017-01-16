@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {signUp} from 'APP/app/reducers/auth';
 import {connect} from 'react-redux';
-import Navbar from './Navbar';
+import NavBar from './NavBar';
 
 const style = {
   button : {
@@ -69,7 +69,7 @@ export default connect (null, mapDispatchToProps) (
     render(){
      return (
         <div>
-          <Navbar/>
+          <NavBar/>
           <div style={ style.container }>
             <h1 style={ style.title } >Sign Up</h1>
             <form onSubmit={this.handleSubmit}>

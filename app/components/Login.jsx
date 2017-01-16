@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Navbar from './Navbar';
+import NavBar from './NavBar';
 
 const style = {
   button : {
@@ -19,7 +19,7 @@ const style = {
 
 export const Login = ({ login }) => (
   <div>
-    <Navbar/>
+    <NavBar/>
     <div style={ style.container }>
         <h1 style={ style.title } >Login</h1>
           <form onSubmit={evt => {
