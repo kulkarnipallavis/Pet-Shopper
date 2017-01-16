@@ -18,39 +18,18 @@ export default class DropDownProducts extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
-      radio: 'name'
+      searchType: 'name'
     };
   };
 
-
-
-  handleTouchTap = (event) => {
-    // This prevents ghost click.
-    event.preventDefault();
-
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
-  };
-
-  handleItemTap = (event, child) => {
-    event.preventDefault();
-  };
-  handleClick = (event, child) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  handleSubmit = (value) => {
+  handleSubmit(value) {
     event.preventDefault();
     browserHistory.push('/products');
   };
-  handleRadioChange = (event, value) => {
-    console.log(value);
+
+  handleRadioChange(event, value) {
     this.setState({
-      radio: value
+      searchType: value
     });
   };
 
@@ -66,7 +45,6 @@ export default class DropDownProducts extends React.Component {
           iconButtonElement={<IconButton iconStyle={style}><MenuIcon/></IconButton>}
           anchorOrigin={{horizontal: 'left', vertical: 'top'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
-          onItemTouchTap={this.handleItemTap}
           touchTapCloseDelay={0}
         >
           <MenuItem value="Products" primaryText="Browse All Products" containerElement={<Link to="/products" />}/>
@@ -77,33 +55,32 @@ export default class DropDownProducts extends React.Component {
           <Divider />
           <MenuItem
             primaryText={[
-                <form onSubmit={this.handleSubmit} key="search">
-                <TextField
-                  name={this.state.radio}
-                  key={1}
-                  hintText="Search"
-                  style={{width: '100%'}}
+              <form onSubmit={this.handleSubmit} key="search">
+              <TextField
+                name={this.state.searchType}
+                key={1}
+                hintText="Search products"
+                style={{width: '100%'}}
+              />
+              </form>,
+              <RadioButtonGroup
+                key={2}
+                name="shipSpeed"
+                labelPosition="left"
+                defaultSelected="name"
+                onChange={this.handleRadioChange}
+                style={{width: '150px'}}
+              >
+                <RadioButton
+                  value="name"
+                  label="by name"
                 />
-                </form>,
-                <RadioButtonGroup
-                  key={2}
-                  name="shipSpeed"
-                  labelPosition="left"
-                  defaultSelected="name"
-                  onChange={this.handleRadioChange}
-                  style={{width: '150px'}}
-                >
-                  <RadioButton
-                    value="name"
-                    label="by name"
-                  />
-                  <RadioButton
-                    value="tags"
-                    label="by tags"
-                  />
-                </RadioButtonGroup>
+                <RadioButton
+                  value="tags"
+                  label="by tags"
+                />
+              </RadioButtonGroup>
             ]}
-
             leftIcon={<Search />}
             value='search'
           />

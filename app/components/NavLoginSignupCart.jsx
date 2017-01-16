@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
 import AccountBox from 'material-ui/svg-icons/action/account-box';
@@ -7,7 +7,7 @@ import {browserHistory, Link} from 'react-router';
 import {connect} from 'react-redux'
 
 function mapStateToProps(state, ownProps) {
-  return { user: state.user }
+  return { user: state.auth }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -20,7 +20,7 @@ export class NavLoginSignupCart extends Component {
     }
 
   render() {
-    const isLoggedIn = (this.props.user.name) ? true : false;
+    const isLoggedIn = (this.props.user) ? true : false;
     return (
       <div>
         {(!isLoggedIn)

@@ -4,12 +4,6 @@ import DropDownProducts from './DropDownProducts';
 import {browserHistory, Link} from 'react-router';
 import NavLoginSignupCart from './NavLoginSignupCart';
 
-// browse products popover dropdown menu
-// search products dropdown
-// logo/title?
-// login/signup  or logout
-// cart
-
 const NavBar = () => {
   const titleStyles = {
   title: {
