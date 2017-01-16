@@ -89,6 +89,7 @@ const products = [
         price: 10.99
       }
       ]
+
   return (
     <div>
       <Navbar />
@@ -98,7 +99,7 @@ const products = [
         <Paper zDepth={1}>
           <Subheader style={ styles.subheadings }>Cart</Subheader>
           <List>
-          {products && products.map((product, index) => (
+          { products && products.map((product, index) => (
             <ListItem key={product.id} primaryText={product.name} rightIcon={<ClearIcon onClick={() => this.handleClick(product)}/>}/>
             ))}
           </List>
