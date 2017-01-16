@@ -5,19 +5,22 @@ import AccountBox from 'material-ui/svg-icons/action/account-box';
 import IconButton from 'material-ui/IconButton';
 import {browserHistory, Link} from 'react-router';
 import {connect} from 'react-redux'
+import {logout} from '../reducers/auth'
 
 function mapStateToProps(state, ownProps) {
   return { user: state.auth }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    logout: logout
+  }
 }
 
 export class NavLoginSignupCart extends Component {
   constructor(props){
       super();
-    }
+  }
 
   render() {
     const isLoggedIn = (this.props.user) ? true : false;
@@ -58,7 +61,6 @@ export class NavLoginSignupCart extends Component {
                 rippleColor="salmon"
                 label="Logout"
                 labelStyle={{color:'white'}}
-                containerElement={<Link to="/logout"/>}
               />
               <IconButton
                 iconStyle={{color: 'white', marginBottom:'6px'}}
