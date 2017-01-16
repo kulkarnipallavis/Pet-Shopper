@@ -1,5 +1,6 @@
 # Ignore all node_modules
 node_modules/*
+pet_shopper.env.json
 
 # ...except the symlink to ourselves.
 !node_modules/APP
