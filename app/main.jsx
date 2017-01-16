@@ -42,12 +42,9 @@ render (
         <Route path="/" component={LandingPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-<<<<<<< HEAD
-=======
         <Route path="/products" component={Products} />
         <Route path="/products/:id" component={Product} />
       <Route path="/products/categories/:id" component={Products} />
->>>>>>> 3f5a93f7e3b31c684b039ac1edfcc8a2cf40e250
       </Router>
     </Provider>
   </MuiThemeProvider>,
