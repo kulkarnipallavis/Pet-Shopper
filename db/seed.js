@@ -33,10 +33,5 @@ db.didSync
   .then(categories => console.log(`Seeded ${categories.length} categories OK`))
   .then(seedProducts)
   .then(products => console.log(`Seeded ${products.length} products OK`))
-<<<<<<< HEAD
-  .catch(error => console.error(error))
-  .finally(() => db.close())
-=======
   .catch(error => console.error(error))    
   .finally(() => db.close())
->>>>>>> 3f5a93f7e3b31c684b039ac1edfcc8a2cf40e250
