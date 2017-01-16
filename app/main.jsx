@@ -12,31 +12,15 @@ import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-   
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Options/>}
-      </nav> 
-      {children}
-    </div>
-   
-)
-
 injectTapEventPlugin()
 
 render (
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={ExampleApp}/>
-        <Route path="/home" component={LandingPage} />
+        <Route path="/" component={LandingPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-        <Route path="/" component={LandingPage} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
