@@ -42,28 +42,28 @@ export const updateTotal = (orderTotal) => ({
 })
 
 export const fetchOrder = () => dispatch => {
-	axios.get('/api/order')
+	axios.get('/api/orders')
 	.then(response => {
-		const products = response.data[products]
+		const products = response.data
 		dispatch(getOrder(products))
 	})
 }
 
 export const addToOrder = product => (dispatch, getState) => {
-	const total = getState().orderTotal + product.price;
-	axios.post('/api/order', product, total)
+	const total = Number(getState().cart.orderTotal) + Number(product.price);
+	axios.post('/api/orders', {product: {id: product.id, total: total}})
 	.then(response => {
-		const products = response.data[products]
+		const products = response.data
 		dispatch(updateOrder(products))
 		dispatch(updateTotal(total))
 	})
 }
 
 export const deleteFromOrder = (product) => (dispatch, getState) => {
-	const total = getState().orderTotal - product.price;
-	axios.post('/api/order', product, total)
+	const total = Number(getState().cart.orderTotal) - Number(product.price);
+	axios.post('/api/orders/delete', product.id, total)
 	.then(response => {
-		const products = response.data[products]
+		const products = response.data
 		dispatch(updateOrder(products))
 		dispatch(updateTotal(total))
 	})

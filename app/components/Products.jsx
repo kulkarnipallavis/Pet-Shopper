@@ -14,6 +14,7 @@ function mapStateToProps(state, ownProps) {
 
 export const Products = (props) => {
   const products = props.products;
+  console.log(products)
   return (
     <div>
     <NavBar />

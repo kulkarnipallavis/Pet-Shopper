@@ -70,6 +70,7 @@ router.get('/', (req, res, next) => {
 // add single product to cart
 // expects post data = {"product": {"id": 4}, "total": "20.00"}
 router.post('/', (req, res, next) => {
+	console.log(req.body)
 	req.session.order.products = req.session.order.products.concat([req.body.product.id]);
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length
