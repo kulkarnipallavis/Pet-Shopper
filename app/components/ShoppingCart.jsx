@@ -6,15 +6,13 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
-import ClearIcon from 'material-ui/svg-icons/content/clear';
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 import RaisedButton from 'material-ui/RaisedButton';
-
 
 import {deleteFromOrder} from '../reducers/cart';
 
-
 const mapStateToProps = (state) => {
-  return {products : state.products}
+  return {products : state.cart.products}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -24,11 +22,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
 
 export const ShoppingCart = (props) => {
 
@@ -62,6 +55,9 @@ export const ShoppingCart = (props) => {
     }
   }
 
+  let products = props.products;
+  let deleteProduct = props.deleteFromOrderDispatch;
+  
   return (
     <div style= {styles.cartContainer}>
       <div style={ styles.cart }>
@@ -73,8 +69,8 @@ export const ShoppingCart = (props) => {
             <ListItem key={product.id} 
               primaryText={product.name} 
               rightIcon={<ClearIcon 
-              onClick={props.deleteFromOrderDispatch(product)}/>}
-              />
+              onClick={deleteProduct(product)}/>}
+              /> 
             ))}
           </List>
         </Paper>
@@ -82,3 +78,8 @@ export const ShoppingCart = (props) => {
     </div>
   )
 }
+
+import {login} from 'APP/app/reducers/auth'
+import {connect} from 'react-redux'
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)

@@ -69,3 +69,5 @@ export const deleteFromOrder = (product) => (dispatch, getState) => {
 		dispatch(updateTotal(total))
 	})
 }
+
+export default reducer;
