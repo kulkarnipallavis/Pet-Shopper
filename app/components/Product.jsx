@@ -17,19 +17,14 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-export default connect (mapStateToProps, mapDispatchToProps) (
-  class Products extends Component {
+
+ export class Product extends Component {
   constructor(props){
       super();
       this.state = {
       }
-      this.handleClick = this.handleClick.bind(this);
       props.getProductDispatch(props.routeParams.id);
     }
-
-  handleClick(index){
-    this.props.setProductDispatch(this.props.products.products[index]);
-  }
 
   render() {
     const styles = {
@@ -58,7 +53,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
 
           <Paper style={{height: 'auto', width: '40%', margin : '20px', display : 'block', position: 'relative'}} zDepth={1} >
               <div style={{display : 'block'}}>
-                <div style={{textAlign:'center'}}>
+                <div id="product-name" style={{textAlign:'center'}}>
                   <h2>{product.name}</h2>
                 </div>
                 <div style={{textAlign:'center', color:'green'}}>
@@ -70,7 +65,7 @@ export default connect (mapStateToProps, mapDispatchToProps) (
                 <div style={{textAlign:'left', marginTop: '15px', paddingLeft: '10px', paddingRight: '10px'}}>
                   {product.tags && ('Tags: ' + product.tags.join(', '))}
                 </div>
-                <div style={{textAlign:'center'}}>
+                <div id="product-price" style={{textAlign:'center'}}>
                   <h4>Price: ${product.price}</h4>
                 </div>
               </div>
@@ -84,4 +79,4 @@ export default connect (mapStateToProps, mapDispatchToProps) (
     )
   }
 }
-)
+export default connect (mapStateToProps, mapDispatchToProps) (Product)
