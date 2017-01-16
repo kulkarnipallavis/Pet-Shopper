@@ -18,8 +18,6 @@ const style = {
   }
 };
 
-
-
 function mapDispatchToProps(dispatch) {
   return {
     signUpSubmit: function(name, email, password) {

@@ -7,7 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import store from './store'
 import LandingPage from './components/LandingPage'
-import Cart from './components/Cart'
+import CartContainer from './components/CartContainer'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
@@ -41,7 +41,7 @@ render (
         <Route path="/" component={LandingPage} />
         <Route path="/" component={ExampleApp}/>
         <Route path="/home" component={LandingPage} />
-        <Route path="/cart" component={Cart} />
+        <Route path="/cart" component={CartContainer} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/" component={LandingPage} />
