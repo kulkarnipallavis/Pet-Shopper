@@ -110,9 +110,9 @@ const products = [
       <Paper zDepth={1}>
         <Subheader style={ styles.subheadings }>Order Summary</Subheader>
         <List>
-          <ListItem primaryText="Hello"/>
+          <ListItem primaryText="Product 1"/>
           <Divider/>
-          <ListItem primaryText="Hello"/>
+          <ListItem primaryText="Product 2"/>
         </List>
         <RaisedButton type="submit" value="checkout" label="Proceed To Checkout" backgroundColor="#FA8072" style={ styles.button }  />
       </Paper>
