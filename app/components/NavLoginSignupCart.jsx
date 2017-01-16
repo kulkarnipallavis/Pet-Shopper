@@ -13,7 +13,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: logout
+    logout: function() {
+      dispatch(logout());
+    }
   }
 }
 
@@ -61,16 +63,18 @@ export class NavLoginSignupCart extends Component {
                 rippleColor="salmon"
                 label="Logout"
                 labelStyle={{color:'white'}}
+                style={{verticalAlign:'middle'}}
+                onClick={this.props.logout}
               />
               <IconButton
-                iconStyle={{color: 'white', marginBottom:'6px'}}
-                containerElement={<Link to="/account"/>}
+                iconStyle={{color: 'white'}}
+                href="/account"
               >
                 <AccountBox/>
               </IconButton>
               <IconButton
-                iconStyle={{color: 'white', marginBottom:'6px'}}
-                containerElement={<Link to="/cart"/>}
+                iconStyle={{color: 'white'}}
+                href="/cart"
               >
                 <ShoppingCart/>
               </IconButton>
