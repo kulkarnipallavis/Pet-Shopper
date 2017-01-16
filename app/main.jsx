@@ -17,8 +17,7 @@ import Products from './components/Products'
 import Product from './components/Product'
 
 injectTapEventPlugin();
-
-import {getAllProducts, getSelectedProduct} from './reducers/products'
+import {getAllProducts, getSelectedProduct, getProductsInCategory} from './reducers/products'
 
 const onProductsEnter = () => {
   store.dispatch(getAllProducts());
@@ -39,7 +38,9 @@ render (
         <Route path="/cart" component={CartContainer} />
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-      <Route path="/products/categories/:id" component={Products} />
+      <Route path="/products/categories/:id"
+        component={Products}
+        onEnter={next => store.dispatch(getProductsInCategory(next.params.id))}/>
       </Router>
     </Provider>
   </MuiThemeProvider>,
