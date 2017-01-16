@@ -6,7 +6,6 @@ const initialState = {
 	orderTotal : 0
 }
 
-//reducer
 const reducer = (state=initialState, action) => {
 	const newState = Object.assign({}, state)
 
@@ -23,7 +22,6 @@ const reducer = (state=initialState, action) => {
 	}
 	return newState
 }
-//action creators
 
 const GET_ORDER = 'GET_ORDER'
 export const getOrder = (products) => ({
@@ -43,11 +41,10 @@ export const updateTotal = (orderTotal) => ({
 	orderTotal
 })
 
-//dispatchers
 export const fetchOrder = () => dispatch => {
 	axios.get('/api/order')
 	.then(response => {
-		const products = response.data
+		const products = response.data[products]
 		dispatch(getOrder(products))
 	})
 }
@@ -57,7 +54,7 @@ export const addToOrder = product => (dispatch, getState) => {
 	const total = getState().orderTotal + product.price;
 	axios.post('/api/order', product, total)
 	.then(response => {
-		const products = response.data
+		const products = response.data[products]
 		dispatch(updateOrder(products))
 		dispatch(updateTotal(total))
 	})
@@ -67,10 +64,8 @@ export const deleteFromOrder = (product) => (dispatch, getState) => {
 	const total = getState().orderTotal - product.price;
 	axios.post('/api/order', product, total)
 	.then(response => {
-		const products = response.data
+		const products = response.data[products]
 		dispatch(updateOrder(products))
 		dispatch(updateTotal(total))
 	})
 }
-
-
