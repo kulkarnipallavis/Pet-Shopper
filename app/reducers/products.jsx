@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const initialState = {
   allProducts: [],
+  listProducts: [],
   selectedProduct: {}
 }
 
@@ -11,6 +12,9 @@ const reducer = (state=initialState, action) => {
   case SET_ALL_PRODUCTS:
     newState.allProducts = action.allProducts;
     break;
+  case SET_LIST_PRODUCTS:
+    newState.listProducts = action.products;
+    break;
   case SET_SINGLE_PRODUCT:
     newState.selectedProduct = action.selectedProduct;
   }
@@ -19,6 +23,7 @@ const reducer = (state=initialState, action) => {
 
 //CONSTANTS
 const SET_ALL_PRODUCTS = 'SET_ALL_PRODUCTS';
+const SET_LIST_PRODUCTS = 'SET_LIST_PRODUCTS';
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT';
 const ADD_TO_CART = 'ADD_TO_CART';
 
@@ -28,25 +33,51 @@ export const setAllProducts = allProducts => ({
   allProducts
 })
 
+export const setListProducts = products => ({
+  type: SET_LIST_PRODUCTS,
+  products
+})
+
 export const setSelectedProduct = selectedProduct => ({
   type: SET_SINGLE_PRODUCT,
   selectedProduct
 })
 
 //THUNK ACTIONS
-export const getAllProducts = (type, info) => {
-  if (!type) return dispatch =>
+export const getAllProducts = () => {
+  return dispatch =>
     axios.get('/api/products')
       .then(response => {
         const allProducts = response.data
         dispatch(setAllProducts(allProducts))
   })
-  if (type === 'category') return dispatch =>
-    axios.get(`/api/categories/${info}`)
+}
+
+export const getListProducts = (name = undefined, tags = undefined, category = undefined) => {
+  if (category !== undefined) return dispatch =>
+    axios.get(`/api/categories/${category}`)
       .then(response => {
-        const allProducts = response.data
-        dispatch(setAllProducts(allProducts))
+        const products = response.data
+        dispatch(setListProducts(products))
   })
+  else if (name !== undefined) return dispatch =>
+    axios.get(`/api/products?name=${name}`)
+      .then(response => {
+        const products = response.data
+        dispatch(setListProducts(products))
+  })
+  else if (tags !== undefined) return dispatch =>
+    axios.get(`/api/products?tags=${tags}`)
+      .then(response => {
+        const products = response.data
+        dispatch(setListProducts(products))
+  })
+  else if (!category && !name && !tags) {
+    return (dispatch, getStore) => {
+      const products = getStore().products.allProducts;
+      dispatch(setListProducts(products));
+    }
+  }
 }
 
 export const getSelectedProduct = (id) =>

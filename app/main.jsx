@@ -15,12 +15,20 @@ import {Options} from './components/SignInOptions'
 import Products from './components/Products'
 import Product from './components/Product'
 
-import {getAllProducts, getSelectedProduct} from './reducers/products'
+import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
 
 injectTapEventPlugin()
 
-const onProductsEnter = () => {
+const onProductsEnter = (nextRouterState) => {
+  console.log(nextRouterState);
   store.dispatch(getAllProducts());
+  if (nextRouterState.params.id) {
+    store.dispatch(getListProducts( undefined, undefined, nextRouterState.params.id));
+  }
+  else if (nextRouterState.location.query.name || nextRouterState.location.query.name){
+    store.dispatch(getListProducts(nextRouterState.location.query.name, nextRouterState.location.query.tags));
+  }
+  else store.dispatch(getListProducts());
 };
 
 const onSingleProductEnter = (nextRouterState) => {
@@ -36,7 +44,7 @@ render (
         <Route path="/login" component={Login} />
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-      <Route path="/products/categories/:id" component={Products} />
+      <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
