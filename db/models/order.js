@@ -8,14 +8,21 @@ const Order = db.define('orders', {
 	},
 	status: {
 		type: Sequelize.ENUM,
-		values: ['active', 'pending', 'complete']
+		values: ['active', 'complete']
+	},
+	total: {
+		type: Sequelize.DECIMAL(10, 2)
+	},
+	totalItems: {
+		type: Sequelize.INTEGER
 	}
 }, {
 	instanceMethods: {
 		fetchProducts: function() {
-			return this.products.Map(el => Product.findById(el))
+			return this.products.map(el => Product.findById(el))
 		}
 	}
 })
+
 
 module.exports = Order

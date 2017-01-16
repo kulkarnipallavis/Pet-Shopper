@@ -1,71 +1,94 @@
 'use strict'
 
-const db = require('APP/db')
-const Order = db.model('orders')
+const db = require('APP/db');
+const Order = db.model('orders');
+const router = require('express').Router();
 
-const router = require('express').Router()
+router.use('/', (req, res, next) => {
+	if (!req.session.order) {
+		req.session.order = {
+			userId: null,
+			products: [],
+			status: 'active',
+			total: 0.00,
+			totalItems: 0
+		};
+	}
+	next();
+});
 
-//get current active order and place on req.activeOrder
-router.param('activeOrder', function(req, res, next) {
-	Order.findOne({
-		where: {
-			id: req.user.id,
-			status: 'active'
-		}
-	})
-	.then(order => {
-		if (!order) next();
-		req.activeOrder = order;
-		next ();
-		return null;
-	})
-	.catch(next);
-})
+router.use(function(req, res, next) {
+	// if user is logged in but has an empty session.order grab dbOrder & populate session.order
+	if (req.user && req.session.order.products.length === 0) {
+		Order.findOne({
+			where: {
+				user_id: req.user.id,
+				status: 'active'
+			}
+		})
+		.then(order => {
+			if (order) {
+				req.session.order = Object.assign({}, req.session.order, {
+					userId: order.user_id,
+					products: order.products,
+					status: order.status,
+					total: order.total,
+					totalItems: order.totalItems
+				});
+			}
+			next();
+		})
+		.catch(next);
+	} else {
+		next();
+	}
+});
 
+// all following routes use session.order and
+// call syncDbOrder to persist the order in the db for logged in users
+function syncDbOrder(user, sessionOrder) {
+	if (user) {
+		return Order.findOrCreate({
+			where: {
+				user_id: user.id,
+				status: 'active'
+			}
+		})
+		.spread((order) => {
+			return order.update(sessionOrder)
+		})
+		.catch(console.error)
+	} else {
+		return Promise.resolve("Success");
+	}
+}
 
 router.get('/', (req, res, next) => {
-	//Order instanceMethod that fetches products
-	req.activeOrder.fetchProducts()
-	.then(products => {
-		res.send(products)
-	})
-	.catch(next);
-})
+	res.send(req.session.order);
+});
 
-//create or modify an order
+// add single product to cart
+// expects post data = {"product": {"id": 4}, "total": "20.00"}
 router.post('/', (req, res, next) => {
-	if (req.user) {
-		if(req.activeOrder) {
-			req.activeOrder.Update({
-				product: req.body.product
-			})
-		.then(updatedOrder => {
-			return updatedOrder.fetchProducts()
-		})
-		.then(products => res.status(204).send(products))
-		.catch()
-		} else {
-		Order.Create(req.body)
-		.then(order => {
-			return order.fetchProducts()
-		})
-		.then(products => res.status(201).send(products))
-		.catch()
-		}
-	}
+	req.session.order.products = req.session.order.products.concat([req.body.product.id]);
+	req.session.order.total = req.body.total;
+	req.session.order.totalItems = req.session.order.products.length
 
-	req.session.order = {userId: req.user.id, products: req.body.products, total: req.body.total}
+	syncDbOrder(req.user, req.session.order)
+	.then(() => res.send(req.session.order))
+	.catch(next);
+});
 
-})
+// remove single product from cart
+router.post('/delete', (req, res, next) => {
+	const index = req.session.order.products.indexOf(req.body.product.id);
+	req.session.order.products.splice(index, 1);
+	req.session.order.total = req.body.total;
+	req.session.order.totalItems = req.session.order.products.length
+
+	syncDbOrder(req.user, req.session.order)
+	.then(() => res.send(req.session.order))
+	.catch(next);
+});
 
 module.exports = router;
-
-//delete active order?
-// router.delete('/', (req, res, next) => {
-// 	req.activeOrder.Delete()
-// 	.then(()=> res.status(200).send())
-// } )
-
-
-
-
