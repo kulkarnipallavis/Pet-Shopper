@@ -14,7 +14,7 @@ import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 import Products from './components/Products'
 import Product from './components/Product'
-import {Checkout} from './components/Checkout'
+import Checkout from './components/Checkout'
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
 
