@@ -51,73 +51,65 @@ export class Products extends Component {
         overflowY: 'auto',
       },
     };
-
-    const productsArray = [
-      {
-        id: 1,
-        name: 'first',
-        imageURL: 'images/clothing/graysweatshirt.jpg',
-        price: 5.99,
-        description : 'first product description'
-      },
-      {
-        id: 2,
-        name: '2nd',
-        imageURL: 'images/clothing/redcoat.jpg',
-        price: 53.99,
-        description : 'second product description'
-      },
-      {
-        id: 3,
-        name: '3rd',
-        imageURL: 'images/clothing/dress.jpg',
-        price: 15.99,
-        description : 'third product description'
-      },
-      {
-        id: 4,
-        name: 'fourth',
-        imageURL: 'images/clothing/beecostume.jpg',
-        price: 56.99,
-        description : 'fourth product description'
-      },
-      {
-        id: 5,
-        name: 'first',
-        imageURL: 'images/clothing/blueshirt.jpg',
-        price: 5.99,
-        description : 'fifth product description'
-      },
-      {
-        id: 6,
-        name: '2nd',
-        imageURL: 'images/clothing/pinkshirt.jpg',
-        price: 53.99,
-        description : 'sixth product description'
-      },
-      {
-        id: 7,
-        name: '3rd',
-        imageURL: 'images/clothing/patternedcoat.jpg',
-        price: 15.99,
-        description : 'seventh product description'
-      },
-      {
-        id: 8,
-        name: 'fourth',
-        imageURL: 'images/clothing/pinksweater.jpg',
-        price: 56.99,
-        description : 'eighth product description'
-      },
-            {
-        id: 9,
-        name: 'fourth',
-        imageURL: 'images/clothing/redsweatshirt.jpg',
-        price: 56.99,
-        description : 'eighth product description'
-      }
-    ]
-    this.props.products.products = productsArray;
+//     // const products = [
+//     //   {
+//     //     id: 1,
+//     //     name: 'first',
+//     //     imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
+//     //     price: 5.99,
+//     //     description : 'first product description'
+//     //   },
+//     //   {
+//     //     id: 2,
+//     //     name: '2nd',
+//     //     imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
+//     //     price: 53.99,
+//     //     description : 'second product description'
+//     //   },
+//     //   {
+//     //     id: 3,
+//     //     name: '3rd',
+//     //     imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
+//     //     price: 15.99,
+//     //     description : 'third product description'
+//     //   },
+//     //   {
+//     //     id: 4,
+//     //     name: 'fourth',
+//     //     imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
+//     //     price: 56.99,
+//     //     description : 'fourth product description'
+//     //   },
+//     //   {
+//     //     id: 5,
+//     //     name: 'first',
+//     //     imageURL: 'http://www.anniescostumes.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/f/i/file_name_32516.jpg',
+//     //     price: 5.99,
+//     //     description : 'fifth product description'
+//     //   },
+//     //   {
+//     //     id: 6,
+//     //     name: '2nd',
+//     //     imageURL: 'http://images.asadart.com/sources/com/halloweenexpress/images/imagecache/354-375-ru887871.jpg',
+//     //     price: 53.99,
+//     //     description : 'sixth product description'
+//     //   },
+//     //   {
+//     //     id: 7,
+//     //     name: '3rd',
+//     //     imageURL: 'https://img.costumecraze.com/images/vendors/california/PET20114-Nothin-But-A-Hound-Dog-Dog-Costume-large.jpg',
+//     //     price: 15.99,
+//     //     description : 'seventh product description'
+//     //   },
+//     //   {
+//     //     id: 8,
+//     //     name: 'fourth',
+//     //     imageURL: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-9wAnahSjAL82jJl7uKPxA8TL4Zw_Q1Tb1d4ZsT4DWl-CnIQp',
+//     //     price: 56.99,
+//     //     description : 'eighth product description'
+//     //   }
+//     // ]
+//     // this.props.products.products = products;
    
    
     return (

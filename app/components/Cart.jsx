@@ -19,8 +19,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteFromOrderDispatch: (id) => {
-      dispatch(deleteFromOrder(id))
+    deleteFromOrderDispatch: (product) => {
+      dispatch(deleteFromOrder(product))
     }
   }
 }
@@ -32,8 +32,8 @@ constructor(props) {
   this.handleClick = this.handleClick.bind(this);
 }
 
-handleClick(index){
-  this.props.deleteFromOrderDispatch(index);
+handleClick(product){
+  this.props.deleteFromOrderDispatch(product);
 }
 
 render() { 
@@ -89,6 +89,7 @@ const products = [
         price: 10.99
       }
       ]
+
   return (
     <div>
       <Navbar />
@@ -98,8 +99,8 @@ const products = [
         <Paper zDepth={1}>
           <Subheader style={ styles.subheadings }>Cart</Subheader>
           <List>
-          {products && products.map((product, index) => (
-            <ListItem key={product.id} primaryText={product.name} rightIcon={<ClearIcon onClick={() => this.handleClick(index)}/>}/>
+          { products && products.map((product, index) => (
+            <ListItem key={product.id} primaryText={product.name} rightIcon={<ClearIcon onClick={() => this.handleClick(product)}/>}/>
             ))}
           </List>
         </Paper>
