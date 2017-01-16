@@ -12,22 +12,6 @@ import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 
-
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-   
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Options/>}
-      </nav> 
-      {children}
-    </div>
-   
-)
-
 injectTapEventPlugin()
 
 render (
