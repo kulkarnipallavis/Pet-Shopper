@@ -19,8 +19,6 @@ const style = {
   }
 };
 
-
-
 function mapDispatchToProps(dispatch) {
   return {
     signUpSubmit: function(name, email, password) {
@@ -44,7 +42,6 @@ export default connect (null, mapDispatchToProps) (
     }
 
     handleSubmit(evt){
-      console.log("inside handleSubmit");
       evt.preventDefault();
       this.props.signUpSubmit(evt.target.name.value, evt.target.email.value, evt.target.password.value);
     }
