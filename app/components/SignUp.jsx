@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {signUp} from 'APP/app/reducers/auth';
 import {connect} from 'react-redux';
+import NavBar from './NavBar';
 
 const style = {
   button : {
@@ -18,8 +19,6 @@ const style = {
   }
 };
 
-
-
 function mapDispatchToProps(dispatch) {
   return {
     signUpSubmit: function(name, email, password) {
@@ -28,14 +27,14 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect (null, mapDispatchToProps) ( 
+export default connect (null, mapDispatchToProps) (
   class SignUp extends Component{
     constructor(){
       super();
       this.state = {
         password : "",
         errorText : "",
-        disabled : true  
+        disabled : true
       }
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -43,9 +42,8 @@ export default connect (null, mapDispatchToProps) (
     }
 
     handleSubmit(evt){
-      console.log("inside handleSubmit");
       evt.preventDefault();
-      this.props.signUpSubmit(evt.target.name.value, evt.target.email.value, evt.target.password.value);  
+      this.props.signUpSubmit(evt.target.name.value, evt.target.email.value, evt.target.password.value);
     }
 
     handleChangePassword(evt){
@@ -67,53 +65,54 @@ export default connect (null, mapDispatchToProps) (
         })
       }
     }
-   
+
     render(){
      return (
-        <div style={ style.container }>
-          <h1 style={ style.title } >Sign Up</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <TextField
-                name="name"
-                hintText="Name"
-                floatingLabelText="Name"
-                defaultValue="First User"
-                onChange={this.handleChangeName}
-              /><br />
-              <br />
-              <TextField
-                name="email"
-                hintText="Email"
-                floatingLabelText="Email"
-                defaultValue="first@email.com"
-                onChange={this.handleChangeEmail}
-              /><br />
-              <br />
-              <TextField
-                name="password"
-                hintText="Password"
-                floatingLabelText="Password"
-                type="password"
-                onChange={this.handleChangePassword}
-              /><br />
-              <br />
-              <TextField
-                name="passwordConfirm"
-                hintText="Confirm Password"
-                floatingLabelText="Confirm Password"
-                type="password"
-                errorText={this.state.errorText}
-                onChange={this.handleChangeConfirm}
-              /><br />
-              <RaisedButton type="submit" value="signUp" label="Sign Up" backgroundColor="#FA8072" style={ style.button } disabled={this.state.disabled} />
-            </div>
-          </form>
+        <div>
+          <NavBar/>
+          <div style={ style.container }>
+            <h1 style={ style.title } >Sign Up</h1>
+            <form onSubmit={this.handleSubmit}>
+              <div>
+                <TextField
+                  name="name"
+                  hintText="Name"
+                  floatingLabelText="Name"
+                  onChange={this.handleChangeName}
+                /><br />
+                <br />
+                <TextField
+                  name="email"
+                  hintText="Email"
+                  floatingLabelText="Email"
+                  onChange={this.handleChangeEmail}
+                /><br />
+                <br />
+                <TextField
+                  name="password"
+                  hintText="Password"
+                  floatingLabelText="Password"
+                  type="password"
+                  onChange={this.handleChangePassword}
+                /><br />
+                <br />
+                <TextField
+                  name="passwordConfirm"
+                  hintText="Confirm Password"
+                  floatingLabelText="Confirm Password"
+                  type="password"
+                  errorText={this.state.errorText}
+                  onChange={this.handleChangeConfirm}
+                /><br />
+                <RaisedButton type="submit" value="signUp" label="Sign Up" backgroundColor="#FA8072" style={ style.button } disabled={this.state.disabled} labelStyle={{color: 'white'}}/>
+              </div>
+            </form>
+          </div>
         </div>
       );
     }
 })
-  
+
 
 
 
