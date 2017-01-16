@@ -50,7 +50,6 @@ export const fetchOrder = () => dispatch => {
 }
 
 export const addToOrder = product => (dispatch, getState) => {
-	const products = [...getState().products, product];
 	const total = getState().orderTotal + product.price;
 	axios.post('/api/order', product, total)
 	.then(response => {
