@@ -40,13 +40,6 @@ export default connect (mapStateToProps, mapDispatchToProps) (
       }
     };
 
-// <Paper style={{height: 'auto', width: '40%', margin : '20px', backgroundImage: `url(${product.imageURL})`, backgroundSize: 'cover'}} zDepth={2} >
-//              <div style={{width: '100%', height: 'auto', display:'block', margin:'auto'}}>
-//              </div>
-//           </Paper>
-
-
-    //<img src={product.imageURL } style={{width: '100%', height: 'auto', display:'block', margin:'auto'}}/>
     const product = this.props.products.selectedProduct
     return (
       <div>
@@ -78,7 +71,6 @@ export default connect (mapStateToProps, mapDispatchToProps) (
               <RaisedButton label="Add to Cart" labelColor='white' style={{ display : 'block', margin: 'auto'}}backgroundColor="#FA8072"/>
               </div>
           </Paper>
-
       </div>
     </div>
     )
