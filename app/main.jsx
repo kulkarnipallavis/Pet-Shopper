@@ -17,21 +17,6 @@ import Product from './components/Product'
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
 
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Options/>}
-      </nav>
-
-      {children}
-    </div>
-
-)
-
 injectTapEventPlugin()
 
 const onProductsEnter = () => {
