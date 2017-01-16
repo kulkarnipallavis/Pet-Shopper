@@ -37,7 +37,7 @@ export class NavLoginSignupCart extends Component {
                 rippleColor="salmon"
                 label="Login"
                 labelStyle={{color:'white'}}
-                containerElement={<Link to="/login"/>}
+                href="/login"
               />
               <FlatButton
                 backgroundColor="salmon"
@@ -45,11 +45,11 @@ export class NavLoginSignupCart extends Component {
                 rippleColor="salmon"
                 label="Sign Up"
                 labelStyle={{color:'white'}}
-                containerElement={<Link to="/signup"/>}
+                href="/signup"
               />
               <IconButton
-                iconStyle={{color: 'white', marginBottom:'6px'}}
-                containerElement={<Link to="/cart"/>}
+                iconStyle={{color: 'white'}}
+                href="/cart"
               >
                 <ShoppingCart/>
               </IconButton>
