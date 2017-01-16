@@ -25,7 +25,7 @@ const onProductsEnter = (nextRouterState) => {
   if (nextRouterState.params.id) {
     store.dispatch(getListProducts( undefined, undefined, nextRouterState.params.id));
   }
-  else if (nextRouterState.location.query.name || nextRouterState.location.query.name){
+  else if (nextRouterState.location.query.name || nextRouterState.location.query.tags){
     store.dispatch(getListProducts(nextRouterState.location.query.name, nextRouterState.location.query.tags));
   }
   else store.dispatch(getListProducts());

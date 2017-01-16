@@ -73,10 +73,12 @@ export const getListProducts = (name = undefined, tags = undefined, category = u
         dispatch(setListProducts(products))
   })
   else if (!category && !name && !tags) {
-    return (dispatch, getStore) => {
-      const products = getStore().products.allProducts;
-      dispatch(setListProducts(products));
-    }
+    return dispatch =>
+      axios.get('/api/products')
+        .then(response => {
+          const allProducts = response.data
+          dispatch(setListProducts(allProducts))
+    })
   }
 }
 
