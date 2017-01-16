@@ -48,6 +48,5 @@ render (
       </Router>
     </Provider>
   </MuiThemeProvider>,
-
   document.getElementById('main')
 )
