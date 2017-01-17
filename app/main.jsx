@@ -18,7 +18,6 @@ import Product from './components/Product'
 
 import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
 import {getCategories} from './reducers/categories';
-
 import {fetchOrder, setTotal} from './reducers/cart'
 
 injectTapEventPlugin();

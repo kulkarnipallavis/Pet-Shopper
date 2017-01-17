@@ -18,11 +18,17 @@ function mapStateToProps(state, ownProps) {
 
 export const Products = (props) => {
   const products = props.listProducts;
+  const convertPrice = (price) => {
+    price = price.toString()
+    price = price.split("")
+    price.splice(-2, 0, ".")
+    price = "$" + price.join("")
+    return price;
+  };
   return (
     <div>
     <NavBar />
-     <div style={styles.root} id="gridlist">
-     {(products.length < props.products.length)
+    {(products.length < props.products.length)
        ? <RaisedButton
           label="View All Products"
           href="/products"
@@ -31,6 +37,7 @@ export const Products = (props) => {
           labelColor="white"
           />
        : null}
+     <div style={styles.root} id="gridlist">
       <GridList
         cellHeight={'auto'}
         style={styles.gridList}
@@ -49,7 +56,7 @@ export const Products = (props) => {
                   {product.name}
                 </div>
                 <div style={styles.centerElements}>
-                  ${product.price}
+                  {convertPrice(product.price)}
                 </div>
               </div>
             </Paper>

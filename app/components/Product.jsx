@@ -23,7 +23,16 @@ function mapDispatchToProps(dispatch) {
 }
 
 export const Product = (props) => {
-  const product = props.selectedProduct
+  const product = props.selectedProduct;
+  const convertPrice = (price) => {
+    if (!price) return null;
+    price = price.toString()
+    price = price.split("")
+    price.splice(-2, 0, ".")
+    price = "$" + price.join("")
+    return price;
+  };
+
   return (
     <div>
     <NavBar />
@@ -59,7 +68,7 @@ export const Product = (props) => {
                 }
               </div>
               <div style={styles.price}>
-                <h4>Price: ${product.price}</h4>
+                <h4>Price: {convertPrice(product.price)}</h4>
               </div>
             </div>
             <div style={styles.buttonContainer}>
