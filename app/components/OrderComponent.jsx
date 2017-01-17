@@ -20,6 +20,7 @@ export const OrderComponent = (props) => {
 
   let total = props.total;
   total = total.toString()
+
   while (total.length < 3) total = "0" + total;
   total = total.split("")
   total.splice(-2, 0, ".")
@@ -40,7 +41,7 @@ export const OrderComponent = (props) => {
             primaryText= {`Total:  $${total}`}
             />
         </List>
-        <RaisedButton type="submit" value="checkout" label="Proceed To Checkout" backgroundColor="#FA8072" style={ styles.button }  />
+        <RaisedButton type="submit" value="checkout" label="Proceed To Checkout" href="/checkout" labelColor="white" backgroundColor="#FA8072" style={ styles.button }  />
       </Paper>
     </div>
   )
