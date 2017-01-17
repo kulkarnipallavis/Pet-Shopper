@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {login} from 'APP/app/reducers/auth'
+import {connect} from 'react-redux'
 import {Link} from 'react-router';
 
 import {List, ListItem} from 'material-ui/List';
@@ -12,7 +14,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {deleteFromOrder} from '../reducers/cart';
 
 const mapStateToProps = (state) => {
-  return {products : state.cart.products}
+  return { products : state.cart.products }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -25,38 +27,8 @@ const mapDispatchToProps = (dispatch) => {
 
 export const ShoppingCart = (props) => {
 
-  const styles = {
-    button : {
-      margin: 20
-    },
-    heading : {
-      fontFamily : "Roboto, sans-serif",
-      textDecoration: "none",
-      color: "#808080",
-      display: "block",
-      paddingBottom: "15px"
-    },
-    subheadings: {
-      color: "#FA8072"
-    },
-    cartContainer: {
-      paddingTop: "9%",
-      float: "left",
-      width: "60%"
-    },
-    cart : {
-      width: "70%",
-      margin: "auto",
-    },
-    order: {
-      paddingTop: "10%",
-      float: "left",
-      width: "30%"
-    }
-  }
-
-  let products = props.products;
-  let deleteProduct = props.deleteFromOrderDispatch;
+  const products = props.products;
+  const deleteProduct = props.deleteFromOrderDispatch;
   
   return (
     <div style= {styles.cartContainer}>
@@ -65,11 +37,12 @@ export const ShoppingCart = (props) => {
         <Paper zDepth={1}>
           <Subheader style={ styles.subheadings }>Cart</Subheader>
           <List>
-          { products && products.map((product, index) => (
-            <ListItem key={product.id} 
+            {products && products.map((product, index) => (
+            <ListItem 
+              key={index} 
               primaryText={product.name} 
               rightIcon={<ClearIcon 
-              onClick={deleteProduct(product)}/>}
+              onClick={() => deleteProduct(product)}/>}
               /> 
             ))}
           </List>
@@ -79,7 +52,35 @@ export const ShoppingCart = (props) => {
   )
 }
 
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
-
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
+
+
+const styles = {
+  button : {
+    margin: 20
+  },
+  heading : {
+    fontFamily : "Roboto, sans-serif",
+    textDecoration: "none",
+    color: "#808080",
+    display: "block",
+    paddingBottom: "15px"
+  },
+  subheadings: {
+    color: "#FA8072"
+  },
+  cartContainer: {
+    paddingTop: "9%",
+    float: "left",
+    width: "60%"
+  },
+  cart : {
+    width: "70%",
+    margin: "auto",
+  },
+  order: {
+    paddingTop: "10%",
+    float: "left",
+    width: "30%"
+  }
+}

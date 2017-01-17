@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 
 import Navbar from './NavBar';
-import {ShoppingCart} from './ShoppingCart';
-import {OrderComponent} from './OrderComponent';
+import ShoppingCart from './ShoppingCart';
+import OrderComponent from './OrderComponent';
 
 export default () => {
 
@@ -23,3 +23,4 @@ export default () => {
     </div>
   )
 }
+

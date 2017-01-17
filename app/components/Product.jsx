@@ -8,19 +8,19 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-// import {addToOrder} from '../reducers/cart';
+import {addToOrder} from '../reducers/cart';
 
 function mapStateToProps(state) {
   return { selectedProduct: state.products.selectedProduct }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     //dispatch add to cart
-//     addToOrder: function(product) {
-//       dispatch(addToOrder(product));
-//     }
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    addOrderToCart: function(product) {
+      dispatch(addToOrder(product));
+    }
+  }
+}
 
 export const Product = (props) => {
   const product = props.selectedProduct
@@ -63,14 +63,14 @@ export const Product = (props) => {
               </div>
             </div>
             <div style={styles.buttonContainer}>
-            <RaisedButton label="Add to Cart" labelColor='white' style={styles.button} backgroundColor="#FA8072"/>
+            <RaisedButton label="Add to Cart" labelColor='white' onClick={() => props.addOrderToCart(product)} style={styles.button} backgroundColor="#FA8072"/>
             </div>
         </Paper>
     </div>
   </div>)
 }
 
-export default connect (mapStateToProps) (Product)
+export default connect (mapStateToProps, mapDispatchToProps) (Product)
 
 const styles = {
   root: {

@@ -17,6 +17,9 @@ import Products from './components/Products'
 import Product from './components/Product'
 
 import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
+import {getCategories} from './reducers/categories';
+
+import {fetchOrder, setTotal} from './reducers/cart'
 
 injectTapEventPlugin();
 
@@ -33,6 +36,15 @@ const onProductsEnter = (nextRouterState) => {
 
 const onSingleProductEnter = (nextRouterState) => {
   store.dispatch(getSelectedProduct(nextRouterState.params.id));
+  store.dispatch(fetchOrder())
+}
+
+const onCartEnter = () => {
+  store.dispatch(fetchOrder())
+}
+
+const onLandingPageEnter = () => {
+  store.dispatch(getCategories());
 }
 
 render (
@@ -40,10 +52,10 @@ render (
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={LandingPage} />
+        <Route path="/" component={LandingPage} onEnter={onLandingPageEnter}/>
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-        <Route path="/cart" component={CartContainer} />
+        <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
       <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
