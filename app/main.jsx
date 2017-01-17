@@ -11,7 +11,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
-
+import UserAccount from './components/UserAccount'
 
 
 const ExampleApp = connect(
@@ -37,6 +37,7 @@ render (
         <Route path="/" component={LandingPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/userAccount" component={UserAccount} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
