@@ -2,6 +2,7 @@
 
 const db = require('APP/db');
 const Order = db.model('orders');
+const Product = db.model('products');
 const router = require('express').Router();
 
 router.use('/', (req, res, next) => {
@@ -64,7 +65,12 @@ function syncDbOrder(user, sessionOrder) {
 }
 
 router.get('/', (req, res, next) => {
-	res.send(req.session.order);
+	const productIds = req.session.order.products;
+	Promise.all(Product.findAllById(productIds))
+	.then(products => {
+		const response = {'products': products, 'total': req.session.order.total}
+		res.send(response)
+	})
 });
 
 // add single product to cart
@@ -73,9 +79,15 @@ router.post('/', (req, res, next) => {
 	req.session.order.products = req.session.order.products.concat([req.body.product.id]);
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length
-
 	syncDbOrder(req.user, req.session.order)
-	.then(() => res.send(req.session.order))
+	.then(() => {
+		const productIds = req.session.order.products;
+		return Promise.all(Product.findAllById(productIds))
+	})
+	.then((productsArray) => {
+		const response = {'products': productsArray, 'total': req.session.order.total}
+		res.send(response)
+	})
 	.catch(next);
 });
 
@@ -85,9 +97,15 @@ router.post('/delete', (req, res, next) => {
 	req.session.order.products.splice(index, 1);
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length
-
 	syncDbOrder(req.user, req.session.order)
-	.then(() => res.send(req.session.order))
+	.then(() => {
+		const productIds = req.session.order.products;
+		return Promise.all(Product.findAllById(productIds))
+	})
+	.then((productsArray) => {
+		const response = {'products': productsArray, 'total': req.session.order.total}
+		res.send(response)
+	})
 	.catch(next);
 });
 
