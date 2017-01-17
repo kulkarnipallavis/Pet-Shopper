@@ -13,9 +13,6 @@ const reducer = (state=initialState, action) => {
 		case SET_ORDER:
 			newState.products = action.products;
 			break;
-		// case SET_TOTAL:
-		// 	newState.orderTotal = action.orderTotal;
-		// 	break;
 		case UPDATE_ORDER:
 			newState.products = action.products;
 			break;
@@ -49,11 +46,10 @@ export const updateTotal = orderTotal => ({
 //action-dispatchers
 
 export const fetchOrder = () => (dispatch, getState) => {
-	let total = Number(getState().cart.orderTotal)
 	axios.get('/api/orders')
 	.then(response => {
 		const products = response.data.products
-		const total = response.data.total
+		const total = (response.data.total) ? response.data.total : 0;
 		dispatch(setOrder(products))
 		dispatch(updateTotal(total))
 	})
