@@ -20,6 +20,8 @@ export default class DropDownProducts extends React.Component {
     this.state = {
       searchType: 'name'
     };
+    this.handleRadioChange = this.handleRadioChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   };
 
   handleSubmit(value) {

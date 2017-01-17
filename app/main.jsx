@@ -16,13 +16,22 @@ import {Options} from './components/SignInOptions'
 import Products from './components/Products'
 import Product from './components/Product'
 
-injectTapEventPlugin();
+import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
+import {getCategories} from './reducers/categories';
 
-import {getAllProducts, getSelectedProduct} from './reducers/products'
 import {fetchOrder, setTotal} from './reducers/cart'
 
-const onProductsEnter = () => {
+injectTapEventPlugin();
+
+const onProductsEnter = (nextRouterState) => {
   store.dispatch(getAllProducts());
+  if (nextRouterState.params.id) {
+    store.dispatch(getListProducts( undefined, undefined, nextRouterState.params.id));
+  }
+  else if (nextRouterState.location.query.name || nextRouterState.location.query.tags){
+    store.dispatch(getListProducts(nextRouterState.location.query.name, nextRouterState.location.query.tags));
+  }
+  else store.dispatch(getListProducts());
 };
 
 const onSingleProductEnter = (nextRouterState) => {
@@ -34,18 +43,22 @@ const onCartEnter = () => {
   store.dispatch(fetchOrder())
 }
 
+const onLandingPageEnter = () => {
+  store.dispatch(getCategories());
+}
+
 render (
 
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={LandingPage} />
+        <Route path="/" component={LandingPage} onEnter={onLandingPageEnter}/>
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-      <Route path="/products/categories/:id" component={Products} />
+      <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
