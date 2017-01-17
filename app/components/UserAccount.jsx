@@ -6,6 +6,7 @@ import {getCurrentOrder, getOrderHistory} from '../reducers/userAccount'
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Tabs, Tab} from 'material-ui/Tabs';
 
 const mapStateToProps = state => {
 	return {
@@ -71,6 +72,8 @@ export class UserAccount extends Component{
 			<NavBar />
 			<div style={styles.root} >
 				<Paper style={{height: 'auto', width: '700px', margin : '20px', display : 'block', position: 'relative'}} zDepth={2} >
+				<Tabs>
+					<Tab label="Current Order"  style={{backgroundColor: '#EEEEEE', color:'black'}}>
 					<div style={{display : 'block'}}>
 						<div id="product-name" style={{textAlign:'left'}}>
 						<h2>Current Order</h2>
@@ -107,7 +110,10 @@ export class UserAccount extends Component{
 		                }
 		                
 					</div>
+					</Tab>
+    				<Tab label="Order History"  style={{backgroundColor: '#EEEEEE', color:'black'}}>
 					<div>
+					<h2>Order History</h2>
 					{
 						orderHistory && orderHistory.map((order, index) =>(
 							<paper style={{height: 'auto', width: '700px', margin : '20px', display : 'block', position: 'relative'}} zDepth={2} >
@@ -120,6 +126,8 @@ export class UserAccount extends Component{
 						))
 					}
 					</div>
+					</Tab>
+				</Tabs>
 				</Paper>
 			</div>
 			</div>
