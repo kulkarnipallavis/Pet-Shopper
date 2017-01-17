@@ -70,4 +70,12 @@ export const deleteFromOrder = (product) => (dispatch, getState) => {
 	})
 }
 
+export const completeOrder = () => (dispatch, getState) => {
+	axios.post('/api/orders/done')
+	.then(response => {
+		dispatch(updateOrder([]))
+		dispatch(updateTotal(0.00))
+	})
+}
+
 export default reducer;

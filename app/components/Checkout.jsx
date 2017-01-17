@@ -17,17 +17,20 @@ import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
+import {completeOrder} from '../reducers/cart'
 
 function mapStateToProps(state, ownProps) {
   return {
     cart: state.cart
   }
 }
-function mapDispatchToProps(state, ownProps) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
-    // set order complete function (in store and db)
+    // set order complete (in db), and clear session.order, cart.products, cart.total
+    dispatchCompleteOrder: function() {
+      dispatch(completeOrder());
+    }
     // save shipping, payment, billing to backend? (do we need it?)
-    // empty cart
     // send email?
   }
 }
@@ -92,6 +95,10 @@ class Checkout extends React.Component {
           <div>
             <div>
               <h3>Order</h3>
+                <div style={{marginLeft: "20px"}}><b>Total: </b>${this.props.cart.total}</div>
+              {this.props.cart.products.map(product => (
+                <div key={product.id} style={{marginLeft: "20px"}}>{product.name}</div>
+              ))}
             </div>
             <div>
               <h3>Shipping</h3>
@@ -133,7 +140,6 @@ class Checkout extends React.Component {
   handleSumbit(e) {
     e.preventDefault();
     const {stepIndex} = this.state;
-
     if (stepIndex === 0) {
       const shippingInput = {
         firstName: e.target.firstName.value,
@@ -178,6 +184,7 @@ class Checkout extends React.Component {
     }
     if (stepIndex === 2) {
       // dispatch things
+      this.props.dispatchCompleteOrder();
       browserHistory.push("/");
     }
   }
@@ -192,7 +199,6 @@ class Checkout extends React.Component {
 
   render() {
     const {stepIndex} = this.state;
-    console.log(this.state);
     return (
       <div>
         <NavBar/>
@@ -242,4 +248,4 @@ class Checkout extends React.Component {
   }
 }
 
-export default Checkout;
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
