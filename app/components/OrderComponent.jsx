@@ -18,14 +18,26 @@ const mapStateToProps = (state) => {
 
 export const OrderComponent = (props) => {
 
-  const total = props.orderTotal;
+  let total = props.total;
+  total = total.toString()
+  while (total.length < 3) total = "0" + total;
+  total = total.split("")
+  total.splice(-2, 0, ".")
+  total = total.join("")
+
   return (
     <div style={ styles.order }>
       <Paper zDepth={1}>
         <Subheader style={ styles.subheadings }>Order Summary</Subheader>
         <List>
           <ListItem
-            primaryText={total}
+            primaryText={`Subtotal:  $${total}`}
+            />
+          <ListItem
+            primaryText='Shipping: Free'
+            />
+          <ListItem
+            primaryText= {`Total:  $${total}`}
             />
         </List>
         <RaisedButton type="submit" value="checkout" label="Proceed To Checkout" backgroundColor="#FA8072" style={ styles.button }  />
@@ -34,8 +46,7 @@ export const OrderComponent = (props) => {
   )
 }
 
-export default connect (mapStateToProps)(OrderComponent)
-
+export default connect(mapStateToProps)(OrderComponent)
 
 const styles = {
   button : {

@@ -27,6 +27,7 @@ const onProductsEnter = () => {
 
 const onSingleProductEnter = (nextRouterState) => {
   store.dispatch(getSelectedProduct(nextRouterState.params.id));
+  store.dispatch(fetchOrder())
 }
 
 const onCartEnter = () => {

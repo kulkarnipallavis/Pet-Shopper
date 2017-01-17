@@ -66,12 +66,11 @@ function syncDbOrder(user, sessionOrder) {
 
 router.get('/', (req, res, next) => {
 	const productIds = req.session.order.products;
-
 	Promise.all(Product.findAllById(productIds))
 	.then(products => {
-		res.send(products)
+		const response = {'products': products, 'total': req.session.order.total}
+		res.send(response)
 	})
-
 });
 
 // add single product to cart
@@ -86,8 +85,8 @@ router.post('/', (req, res, next) => {
 		return Promise.all(Product.findAllById(productIds))
 	})
 	.then((productsArray) => {
-		console.log('inside route', productsArray)
-		res.send(productsArray)
+		const response = {'products': productsArray, 'total': req.session.order.total}
+		res.send(response)
 	})
 	.catch(next);
 });
@@ -104,7 +103,8 @@ router.post('/delete', (req, res, next) => {
 		return Promise.all(Product.findAllById(productIds))
 	})
 	.then((productsArray) => {
-		res.send(productsArray)
+		const response = {'products': productsArray, 'total': req.session.order.total}
+		res.send(response)
 	})
 	.catch(next);
 });
