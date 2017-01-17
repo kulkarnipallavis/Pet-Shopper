@@ -58,7 +58,7 @@ export default connect (null, mapDispatchToProps) (
             errorText : "Passwords must match.",
             disabled: true
         })
-      }else{
+      } else{
         this.setState({
             errorText : "",
             disabled : false

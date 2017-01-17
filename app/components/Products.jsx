@@ -10,16 +10,16 @@ import Paper from 'material-ui/Paper';
 import Addbox from 'material-ui/svg-icons/content/add-box';
 
 function mapStateToProps(state, ownProps) {
-  return { 
+  return {
     products: state.products.allProducts,
+    listProducts: state.products.listProducts,
     user: state.auth
-  }
+    }
 }
 
 export const Products = (props) => {
-  const products = props.products;
+  const products = props.listProducts;
   const user = props.user;
-  console.log("indside Products, ", products, user);
   return (
     <div>
       <NavBar />
@@ -80,15 +80,15 @@ const styles = {
     overflowY: 'auto',
   },
   product: {
-    maxWidth: '250px', 
-    height: '200px', 
-    width: 'auto', 
+    maxWidth: '250px',
+    height: '200px',
+    width: 'auto',
     margin : '20px'
   },
   prodImage: {
-    maxHeight: '150px', 
-    width: 'auto', 
-    display:'block', 
+    maxHeight: '150px',
+    width: 'auto',
+    display:'block',
     margin:'auto'
   },
   centerElements: {
@@ -104,3 +104,4 @@ const styles = {
     paddingTop: '15%'
   }
 };
+
