@@ -14,7 +14,7 @@ import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
 import Products from './components/Products'
 import Product from './components/Product'
-import AdminLanding from './components/admin/AdminLanding'
+import AddProduct from './components/AddProduct'
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
 
@@ -36,9 +36,9 @@ render (
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
+        <Route path='/products/admin' component={AddProduct} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-        <Route path="/admin" component={AdminLanding} />
-      <Route path="/products/categories/:id" component={Products} />
+        <Route path="/products/categories/:id" component={Products} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
