@@ -13,7 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import {deleteFromOrder} from '../reducers/cart';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return { products : state.cart.products }
 }
 
@@ -27,38 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export const ShoppingCart = (props) => {
 
-    const styles = {
-    button : {
-      margin: 20
-    },
-    heading : {
-      fontFamily : "Roboto, sans-serif",
-      textDecoration: "none",
-      color: "#808080",
-      display: "block",
-      paddingBottom: "15px"
-    },
-    subheadings: {
-      color: "#FA8072"
-    },
-    cartContainer: {
-      paddingTop: "9%",
-      float: "left",
-      width: "60%"
-    },
-    cart : {
-      width: "70%",
-      margin: "auto",
-    },
-    order: {
-      paddingTop: "10%",
-      float: "left",
-      width: "30%"
-    }
-  }
-
   const products = props.products;
-  console.log(products)
   const deleteProduct = props.deleteFromOrderDispatch;
   
   return (
@@ -70,7 +39,7 @@ export const ShoppingCart = (props) => {
           <List>
             {products && products.map((product, index) => (
             <ListItem 
-              key={product.id} 
+              key={index} 
               primaryText={product.name} 
               rightIcon={<ClearIcon 
               onClick={() => deleteProduct(product)}/>}
@@ -84,3 +53,34 @@ export const ShoppingCart = (props) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
+
+
+const styles = {
+  button : {
+    margin: 20
+  },
+  heading : {
+    fontFamily : "Roboto, sans-serif",
+    textDecoration: "none",
+    color: "#808080",
+    display: "block",
+    paddingBottom: "15px"
+  },
+  subheadings: {
+    color: "#FA8072"
+  },
+  cartContainer: {
+    paddingTop: "9%",
+    float: "left",
+    width: "60%"
+  },
+  cart : {
+    width: "70%",
+    margin: "auto",
+  },
+  order: {
+    paddingTop: "10%",
+    float: "left",
+    width: "30%"
+  }
+}

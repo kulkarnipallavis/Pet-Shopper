@@ -13,6 +13,9 @@ const reducer = (state=initialState, action) => {
 		case SET_ORDER:
 			newState.products = action.products;
 			break;
+		// case SET_TOTAL:
+		// 	newState.orderTotal = action.orderTotal;
+		// 	break;
 		case UPDATE_ORDER:
 			newState.products = action.products;
 			break;
@@ -31,6 +34,12 @@ export const setOrder = products => ({
 	products
 })
 
+// const SET_TOTAL = 'SET_TOTAL'
+// export const setTotal = total => ({
+// 	type: SET_TOTAL,
+// 	total
+// })
+
 const UPDATE_ORDER = 'UPDATE_ORDER'
 export const updateOrder = products => ({
 	type: UPDATE_ORDER,
@@ -43,17 +52,21 @@ export const updateTotal = orderTotal => ({
 	orderTotal
 })
 
-export const fetchOrder = () => dispatch => {
+//action-dispatchers
+
+export const fetchOrder = () => (dispatch, getState) => {
+	// const total = Number(getState().cart.orderTotal)
 	axios.get('/api/orders')
 	.then(response => {
 		const products = response.data
 		dispatch(setOrder(products))
+		// dispatch(updateTotal(total))
 	})
 }
 
 export const addToOrder = product => (dispatch, getState) => {
 	const total = Number(getState().cart.orderTotal) + Number(product.price);
-	axios.post('/api/orders', {product: {id: product.id, total: total}})
+	axios.post('/api/orders', {"product": {"id": product.id}, "total": total})
 	.then(response => {
 		const products = response.data
 		dispatch(updateOrder(products))
@@ -63,7 +76,7 @@ export const addToOrder = product => (dispatch, getState) => {
 
 export const deleteFromOrder = (product) => (dispatch, getState) => {
 	const total = Number(getState().cart.orderTotal) - Number(product.price);
-	axios.post('/api/orders/delete', {product: {id : product.id, total: total}})
+	axios.post('/api/orders/delete', {"product": {"id" : product.id, "total": total}})
 	.then(response => {
 		const products = response.data
 		dispatch(updateOrder(products))

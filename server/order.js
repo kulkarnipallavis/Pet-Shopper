@@ -69,7 +69,6 @@ router.get('/', (req, res, next) => {
 
 	Promise.all(Product.findAllById(productIds))
 	.then(products => {
-		console.log(products)
 		res.send(products)
 	})
 
@@ -84,9 +83,10 @@ router.post('/', (req, res, next) => {
 	syncDbOrder(req.user, req.session.order)
 	.then(() => {
 		const productIds = req.session.order.products;
-		return Product.findAllById(productIds)
+		return Promise.all(Product.findAllById(productIds))
 	})
 	.then((productsArray) => {
+		console.log('inside route', productsArray)
 		res.send(productsArray)
 	})
 	.catch(next);
@@ -101,10 +101,10 @@ router.post('/delete', (req, res, next) => {
 	syncDbOrder(req.user, req.session.order)
 	.then(() => {
 		const productIds = req.session.order.products;
-		return Product.findAllById(productIds)
+		return Promise.all(Product.findAllById(productIds))
 	})
-	.then((products) => {
-		res.send(products)
+	.then((productsArray) => {
+		res.send(productsArray)
 	})
 	.catch(next);
 });

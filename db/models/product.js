@@ -22,7 +22,9 @@ const Product = db.define('products', {
 			})
 		},
 		findAllById: function(arrayOfIds) {
-			return arrayOfIds.map(id => this.findById(id))
+			return arrayOfIds.map(id => {
+				return this.findById(id)
+			})
 		}
 	},
 	instanceMethods: {

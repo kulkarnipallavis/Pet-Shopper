@@ -19,7 +19,7 @@ import Product from './components/Product'
 injectTapEventPlugin();
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
-import {fetchOrder} from './reducers/cart'
+import {fetchOrder, setTotal} from './reducers/cart'
 
 const onProductsEnter = () => {
   store.dispatch(getAllProducts());
