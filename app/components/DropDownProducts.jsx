@@ -38,7 +38,6 @@ export default class DropDownProducts extends React.Component {
   };
 
   handleClick(event, child) {
-    console.log(child.props.value)
     if (child.props.value !== "search") this.setState({
       openMenu: false,
     });
