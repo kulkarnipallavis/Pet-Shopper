@@ -25,7 +25,6 @@ const handleClick = () => {
   <AppBar
     style={titleStyles.barColor}
     titleStyle={titleStyles.titleColor}
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
     title={<div onClick={handleClick}><img src="/images/logo.jpg"/></div>}
     iconElementLeft= {<DropDownProducts/>}
     iconElementRight= {<NavLoginSignupCart/>}
