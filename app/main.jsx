@@ -17,6 +17,7 @@ import Products from './components/Products'
 import Product from './components/Product'
 
 import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
+import {getCategories} from './reducers/categories';
 
 injectTapEventPlugin();
 
@@ -35,12 +36,16 @@ const onSingleProductEnter = (nextRouterState) => {
   store.dispatch(getSelectedProduct(nextRouterState.params.id));
 }
 
+const onLandingPageEnter = () => {
+  store.dispatch(getCategories());
+}
+
 render (
 
   <MuiThemeProvider>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={LandingPage} />
+        <Route path="/" component={LandingPage} onEnter={onLandingPageEnter}/>
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/cart" component={CartContainer} />
