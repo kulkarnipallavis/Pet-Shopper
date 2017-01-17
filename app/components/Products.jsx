@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -21,6 +22,15 @@ export const Products = (props) => {
     <div>
     <NavBar />
      <div style={styles.root} id="gridlist">
+     {(products.length < props.products.length)
+       ? <RaisedButton
+          label="View All Products"
+          href="/products"
+          style={styles.button}
+          backgroundColor="darkgrey"
+          labelColor="white"
+          />
+       : null}
       <GridList
         cellHeight={'auto'}
         style={styles.gridList}
@@ -67,17 +77,20 @@ const styles = {
   product: {
     maxWidth: '250px',
     height: '200px',
-    width: 'auto',
+    width: '100%',
     margin : '20px'
   },
   prodImage: {
     maxHeight: '150px',
-    width: 'auto',
+    maxWidth: '100%',
     display:'block',
     margin:'auto'
   },
   centerElements: {
     textAlign:'center'
   },
+  button: {
+    margin: '15px'
+  }
 };
 
