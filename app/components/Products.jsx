@@ -9,11 +9,14 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 
 function mapStateToProps(state, ownProps) {
-  return { products: state.products.allProducts }
+  return {
+    products: state.products.allProducts,
+    listProducts: state.products.listProducts
+    }
 }
 
 export const Products = (props) => {
-  const products = props.products;
+  const products = props.listProducts;
   return (
     <div>
     <NavBar />

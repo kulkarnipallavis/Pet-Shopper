@@ -19,9 +19,12 @@ import Products from './components/Products'
 import Product from './components/Product'
 import Checkout from './components/Checkout'
 
-injectTapEventPlugin();
+import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
+import {getCategories} from './reducers/categories';
 
-import {getAllProducts, getSelectedProduct} from './reducers/products'
+import {fetchOrder, setTotal} from './reducers/cart'
+
+injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
@@ -30,12 +33,28 @@ const muiTheme = getMuiTheme({
   }
 });
 
-const onProductsEnter = () => {
+const onProductsEnter = (nextRouterState) => {
   store.dispatch(getAllProducts());
+  if (nextRouterState.params.id) {
+    store.dispatch(getListProducts( undefined, undefined, nextRouterState.params.id));
+  }
+  else if (nextRouterState.location.query.name || nextRouterState.location.query.tags){
+    store.dispatch(getListProducts(nextRouterState.location.query.name, nextRouterState.location.query.tags));
+  }
+  else store.dispatch(getListProducts());
 };
 
 const onSingleProductEnter = (nextRouterState) => {
   store.dispatch(getSelectedProduct(nextRouterState.params.id));
+  store.dispatch(fetchOrder())
+}
+
+const onCartEnter = () => {
+  store.dispatch(fetchOrder())
+}
+
+const onLandingPageEnter = () => {
+  store.dispatch(getCategories());
 }
 
 render (
@@ -43,14 +62,14 @@ render (
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={LandingPage} />
+        <Route path="/" component={LandingPage} onEnter={onLandingPageEnter}/>
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-        <Route path="/cart" component={CartContainer} />
+        <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-        <Route path="/products/categories/:id" component={Products} />
         <Route path="/checkout" component={Checkout} />
+      <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
       </Router>
     </Provider>
   </MuiThemeProvider>,
