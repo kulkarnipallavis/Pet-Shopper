@@ -5,6 +5,8 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {pinkA100} from 'material-ui/styles/colors';
 import store from './store'
 
 import LandingPage from './components/LandingPage'
@@ -21,6 +23,13 @@ injectTapEventPlugin();
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
 
+const muiTheme = getMuiTheme({
+  fontFamily: 'Roboto, sans-serif',
+  palette: {
+    primary1Color: "#FA8072",
+  }
+});
+
 const onProductsEnter = () => {
   store.dispatch(getAllProducts());
 };
@@ -31,7 +40,7 @@ const onSingleProductEnter = (nextRouterState) => {
 
 render (
 
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={LandingPage} />

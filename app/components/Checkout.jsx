@@ -206,7 +206,7 @@ class Checkout extends React.Component {
           <Paper zDepth={2} style={{padding: "20px", margin: "10px"}}>
           <Stepper activeStep={stepIndex} connector={<ArrowForwardIcon />}>
             <Step>
-              <StepLabel style={{backgroundColor: "salmon"}}>Shipping Info</StepLabel>
+              <StepLabel>Shipping Info</StepLabel>
             </Step>
 
             <Step>
