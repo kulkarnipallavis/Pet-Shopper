@@ -27,7 +27,6 @@ export const ProductNavigation = (props) => {
       gridList: {
         display: 'flex',
         width: '100%',
-        alignItems: 'center',
         justifyContent: 'center',
         cellHeight: 'auto',
         margin: 'auto'
