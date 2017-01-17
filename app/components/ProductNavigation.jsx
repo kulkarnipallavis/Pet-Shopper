@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router';
 import {GridList, GridTile} from 'material-ui/GridList'
 import Paper from 'material-ui/Paper';
 
@@ -37,16 +37,19 @@ export default () => {
       img: 'images/santahat.jpg',
       title: 'Clothing',
       author: 'Anna Brown',
-    },
-    {
-      img: 'images/santahat.jpg',
-      title: 'Accessories',
-      author: 'Anna Brown',
+      link: '/products/categories/1'
     },
     {
       img: 'images/santahat.jpg',
       title: 'Food',
       author: 'Anna Brown',
+      link: '/products/categories/2'
+    },
+    {
+      img: 'images/santahat.jpg',
+      title: 'Accessories',
+      author: 'Anna Brown',
+      link: '/products/categories/3'
     }
   ];
 
@@ -59,7 +62,9 @@ export default () => {
             titleStyle={styles.titleStyle}
             titleBackground='#FA8072'
           >
+          <Link to={tile.link}>
             <img src={tile.img} />
+          </Link>
           </GridTile></Paper>
         ))}
       </GridList>
