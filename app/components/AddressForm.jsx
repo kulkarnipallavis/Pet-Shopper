@@ -41,6 +41,7 @@ export default () => (
           name="zip"
           hintText="Zip Code"
           required
+          maxLength={5}
           style={{margin: "10px"}}
         />
       </div>

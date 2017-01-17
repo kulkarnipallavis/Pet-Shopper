@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {browserHistory, Link} from 'react-router';
 import NavBar from './NavBar';
 import AddressForm from './AddressForm';
 import CardForm from './CardForm';
@@ -17,10 +18,21 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
 
-/**
- * It is possible to specify your own step connector by passing an element to the `connector`
- * prop. If you want to remove the connector, pass `null` to the `connector` prop.
- */
+function mapStateToProps(state, ownProps) {
+  return {
+    cart: state.cart
+  }
+}
+function mapDispatchToProps(state, ownProps) {
+  return {
+    // set order complete function (in store and db)
+    // save shipping, payment, billing to backend? (do we need it?)
+    // empty cart
+    // send email?
+  }
+}
+
+
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +43,7 @@ class Checkout extends React.Component {
   }
 
   state = {
-    stepIndex: 1,
+    stepIndex: 0,
     shipping: {
       firstName: '',
       lastName: '',
@@ -77,12 +89,43 @@ class Checkout extends React.Component {
 
       case 2: // review
         return (
-          <p>
-            {'Try out different ad text to see what brings in the most customers, and learn ' +
-            'how to enhance your ads using features like ad extensions. If you run into any ' +
-            'problems with your ads, find out how to tell if they\'re running and how to ' +
-            'resolve approval issues.'}
-          </p>
+          <div>
+            <div>
+              <h3>Order</h3>
+            </div>
+            <div>
+              <h3>Shipping</h3>
+              {Object.keys(this.state.shipping).map(key => (
+                <div key={key} style={{marginLeft: "20px"}}><b>{key}: </b>{this.state.shipping[key]}</div>
+              ))}
+            </div>
+            <div>
+              <h3>Payment</h3>
+                {Object.keys(this.state.payment).map(key => (
+                <div key={key} style={{marginLeft: "20px"}}><b>{key}: </b>{this.state.payment[key]}</div>
+                ))}
+            </div>
+            <div>
+              <h3>Billing</h3>
+                {
+                  (this.state.sameAddress)
+                  ? <div style={{marginLeft: "20px"}}>Same as shipping address.</div>
+                  : Object.keys(this.state.billing).map(key => (
+                <div key={key} style={{marginLeft: "20px"}}><b>{key}: </b>{this.state.billing[key]}</div>
+                    ))
+                }
+            </div>
+            <div>
+              <h3>Send Receipt to</h3>
+              <TextField
+                type="email"
+                name="email"
+                hintText="Email"
+                required
+                style={{marginLeft: "20px", width:"65%"}}
+              />
+            </div>
+          </div>
         );
     }
   }
@@ -124,7 +167,6 @@ class Checkout extends React.Component {
         expYear: e.target.expYear.value,
         cvv: e.target.cvv.value
       };
-      console.log(e.target.expMonth)
       this.setState({
         billing: billingInput,
         payment: paymentInput,
@@ -133,6 +175,10 @@ class Checkout extends React.Component {
     }
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
+    }
+    if (stepIndex === 2) {
+      // dispatch things
+      browserHistory.push("/");
     }
   }
 
@@ -146,19 +192,21 @@ class Checkout extends React.Component {
 
   render() {
     const {stepIndex} = this.state;
+    console.log(this.state);
     return (
       <div>
         <NavBar/>
         <div style={{width: '100%', maxWidth: 700, margin: 'auto', fontFamily : "Roboto, sans-serif"}}>
           <RaisedButton
               label='Back to Cart'
+              href="/cart"
               icon={<FontIcon><ChevronLeft/></FontIcon>}
               style={{margin: "10px"}}
           />
           <Paper zDepth={2} style={{padding: "20px", margin: "10px"}}>
           <Stepper activeStep={stepIndex} connector={<ArrowForwardIcon />}>
             <Step>
-              <StepLabel>Shipping Info</StepLabel>
+              <StepLabel style={{backgroundColor: "salmon"}}>Shipping Info</StepLabel>
             </Step>
 
             <Step>
