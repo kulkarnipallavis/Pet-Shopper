@@ -9,11 +9,21 @@ const router = require('express').Router()
 
 // get all products or query for specific ones
 router.get('/', (req, res, next) => {
-	Product.findAll(req.body)
+	if (!req.query.tags) {
+	const nameQuery = (req.query.name)  ? {where: {name: {like: `%${req.query.name}%`}}} : {};
+	Product.findAll(nameQuery)
 	.then(products => {
 		res.send(products);
 	})
 	.catch(next);
+	}
+	else {
+		Product.findByTag(req.query.tags)
+		.then(products => {
+			res.send(products);
+		})
+		.catch(next);
+	}
 })
 
 router.get('/:id', (req, res, next) => {
