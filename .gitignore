@@ -13,3 +13,4 @@ public/bundle.js.map
 npm-debug.log
 
 pet_shopper.env.json
+app/components/Cart.jsx
