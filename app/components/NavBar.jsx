@@ -1,15 +1,13 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import DropDownProducts from './DropDownProducts';
+import {browserHistory, Link} from 'react-router';
+import NavLoginSignupCart from './NavLoginSignupCart';
 
-/**
- * A simple example of `AppBar` with an icon on the right.
- * By default, the left icon is a navigation-menu.
- */
 const NavBar = () => {
   const titleStyles = {
   title: {
     cursor: 'pointer'
-
   },
   barColor:{
     backgroundColor: '#FA8072'
@@ -18,14 +16,19 @@ const NavBar = () => {
     color: '#FAFAFA'
   }
 };
+
+const handleClick = () => {
+  browserHistory.push('/');
+}
+
   return (
   <AppBar
     style={titleStyles.barColor}
     titleStyle={titleStyles.titleColor}
     iconClassNameRight="muidocs-icon-navigation-expand-more"
-    iconElementLeft = {
-      <img src="/images/logo.jpg"/>
-    }
+    title={<div onClick={handleClick}><img src="/images/logo.jpg"/></div>}
+    iconElementLeft= {<DropDownProducts/>}
+    iconElementRight= {<NavLoginSignupCart/>}
   />
   )
 };

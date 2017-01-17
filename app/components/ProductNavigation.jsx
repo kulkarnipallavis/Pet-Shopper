@@ -1,11 +1,25 @@
 import React from 'react'
-
-import {GridList, GridTile} from 'material-ui/GridList'
+import {Link} from 'react-router';
+import {connect} from 'react-redux';
+import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
+import {getCategories} from '../reducers/categories';
 
+const mapStateToProps = (state) => {
+  return {
+    categories : state.categories.categories
+  }
+}
 
-export default () => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCategoriesDispatch : () => {
+      dispatch(getCategories());
+    }
+  }
+}
 
+export const ProductNavigation = (props) => { 
   const styles = {
       root: {
         display: 'flex'
@@ -31,37 +45,26 @@ export default () => {
     }
   }
 
-  const tilesData = [
-    {
-      img: 'images/santahat.jpg',
-      title: 'Clothing',
-      author: 'Anna Brown',
-    },
-    {
-      img: 'images/santahat.jpg',
-      title: 'Accessories',
-      author: 'Anna Brown',
-    },
-    {
-      img: 'images/santahat.jpg',
-      title: 'Food',
-      author: 'Anna Brown',
-    }
-  ];
+  const tilesData = props.categories;
 
   return (
     <div style={styles.root}>
       <GridList id='categoryNav' style={styles.gridList} cols={4}>
         {tilesData.map((tile) => (
-          <Paper zDepth={4} key={tile.title} rounded={false} style={styles.gridTile}><GridTile
-            title={tile.title}
+          <Paper zDepth={4} key={tile.id} rounded={false} style={styles.gridTile}>
+          <GridTile
+            title={tile.name}
             titleStyle={styles.titleStyle}
             titleBackground='#FA8072'
           >
-            <img src={tile.img} />
+          <Link to={`/products/categories/${tile.id}`}>
+            <img src={tile.imageURL} />
+          </Link>
           </GridTile></Paper>
         ))}
       </GridList>
     </div>
     )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductNavigation);

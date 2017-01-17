@@ -6,9 +6,9 @@ const seedUsers = () => db.Promise.map([
 ], user => db.model('users').create(user))
 
 const seedCategories = () => db.Promise.map([
-	{name: 'clothing'},
-	{name: 'food'},
-	{name: 'accessories'}
+	{name: 'clothing', imageURL: '/images/santahat.jpg'},
+	{name: 'food', imageURL: '/images/santahat.jpg'},
+	{name: 'accessories', imageURL: '/images/santahat.jpg'}
 ], category => db.model('categories').create(category));
 
 const seedProducts = () => db.Promise.map([
@@ -33,5 +33,6 @@ db.didSync
   .then(categories => console.log(`Seeded ${categories.length} categories OK`))
   .then(seedProducts)
   .then(products => console.log(`Seeded ${products.length} products OK`))
+  
   .catch(error => console.error(error))
   .finally(() => db.close())
