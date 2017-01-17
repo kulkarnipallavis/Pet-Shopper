@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToOrder: function(product) {
+    addOrderToCart: function(product) {
       dispatch(addToOrder(product));
     }
   }
@@ -50,7 +50,7 @@ export const Product = (props) => {
               </div>
             </div>
             <div style={styles.buttonContainer}>
-            <RaisedButton label="Add to Cart" labelColor='white' onClick={() => props.addToOrder(product)} style={styles.button} backgroundColor="#FA8072"/>
+            <RaisedButton label="Add to Cart" labelColor='white' onClick={() => props.addOrderToCart(product)} style={styles.button} backgroundColor="#FA8072"/>
             </div>
         </Paper>
     </div>

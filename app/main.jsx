@@ -19,6 +19,7 @@ import Product from './components/Product'
 injectTapEventPlugin();
 
 import {getAllProducts, getSelectedProduct} from './reducers/products'
+import {fetchOrder} from './reducers/cart'
 
 const onProductsEnter = () => {
   store.dispatch(getAllProducts());
@@ -26,6 +27,10 @@ const onProductsEnter = () => {
 
 const onSingleProductEnter = (nextRouterState) => {
   store.dispatch(getSelectedProduct(nextRouterState.params.id));
+}
+
+const onCartEnter = () => {
+  store.dispatch(fetchOrder());
 }
 
 render (
@@ -36,7 +41,7 @@ render (
         <Route path="/" component={LandingPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-        <Route path="/cart" component={CartContainer} />
+        <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
       <Route path="/products/categories/:id" component={Products} />

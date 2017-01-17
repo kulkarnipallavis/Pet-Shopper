@@ -19,6 +19,8 @@ const reducer = (state=initialState, action) => {
 		case UPDATE_TOTAL:
 			newState.orderTotal = action.orderTotal;
 			break;
+		default:
+			return state;
 	}
 	return newState
 }
@@ -61,7 +63,7 @@ export const addToOrder = product => (dispatch, getState) => {
 
 export const deleteFromOrder = (product) => (dispatch, getState) => {
 	const total = Number(getState().cart.orderTotal) - Number(product.price);
-	axios.post('/api/orders/delete', product.id, total)
+	axios.post('/api/orders/delete', {product: {id : product.id, total: total}})
 	.then(response => {
 		const products = response.data
 		dispatch(updateOrder(products))

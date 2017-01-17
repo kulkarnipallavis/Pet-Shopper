@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {login} from 'APP/app/reducers/auth'
+import {connect} from 'react-redux'
 import {Link} from 'react-router';
 
 import {List, ListItem} from 'material-ui/List';
@@ -11,8 +13,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import {deleteFromOrder} from '../reducers/cart';
 
-const mapStateToProps = (state) => {
-  return {products : state.cart.products}
+const mapStateToProps = (state, ownProps) => {
+  return { products : state.cart.products.products }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -55,8 +57,8 @@ export const ShoppingCart = (props) => {
     }
   }
 
-  let products = props.products;
-  let deleteProduct = props.deleteFromOrderDispatch;
+  const products = props.products;
+  const deleteProduct = props.deleteFromOrderDispatch;
   
   return (
     <div style= {styles.cartContainer}>
@@ -65,11 +67,12 @@ export const ShoppingCart = (props) => {
         <Paper zDepth={1}>
           <Subheader style={ styles.subheadings }>Cart</Subheader>
           <List>
-          { products && products.map((product, index) => (
-            <ListItem key={product.id} 
+            {products && products.map((product, index) => (
+            <ListItem 
+              key={product.id} 
               primaryText={product.name} 
               rightIcon={<ClearIcon 
-              onClick={deleteProduct(product)}/>}
+              onClick={() => deleteProduct(product)}/>}
               /> 
             ))}
           </List>
@@ -79,7 +82,5 @@ export const ShoppingCart = (props) => {
   )
 }
 
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)

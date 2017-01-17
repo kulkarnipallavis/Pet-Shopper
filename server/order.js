@@ -2,6 +2,7 @@
 
 const db = require('APP/db');
 const Order = db.model('orders');
+const Product = db.model('products');
 const router = require('express').Router();
 
 router.use('/', (req, res, next) => {
@@ -64,19 +65,35 @@ function syncDbOrder(user, sessionOrder) {
 }
 
 router.get('/', (req, res, next) => {
-	res.send(req.session.order);
+	const productIds = req.session.order.products;
+		return Product.findAllById(productIds)
+	.then((productsArray) => {
+		return Promise.all(productsArray)
+	})
+	.then((products) => {
+		res.send(products)
+	})
+	.catch(next);
 });
 
 // add single product to cart
 // expects post data = {"product": {"id": 4}, "total": "20.00"}
 router.post('/', (req, res, next) => {
-	console.log(req.body)
 	req.session.order.products = req.session.order.products.concat([req.body.product.id]);
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length
-
 	syncDbOrder(req.user, req.session.order)
-	.then(() => res.send(req.session.order))
+	.then(() => {
+		const productIds = req.session.order.products;
+		return Product.findAllById(productIds)
+	})
+	.then((productsArray) => {
+		return Promise.all(productsArray)
+	})
+	.then((products) => {
+		console.log(products)
+		res.send(products)
+	})
 	.catch(next);
 });
 
