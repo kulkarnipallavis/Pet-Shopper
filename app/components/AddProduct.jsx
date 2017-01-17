@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import NavBar from './NavBar';
 import Forbidden from './Forbidden';
 
+import {createNewProduct} from './reducers/admin';
+
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,10 +20,18 @@ function mapStateToProps(state) {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     }
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    addProduct: function(prod) {
+      dispatch(createNewProduct(prod))
+    }
+  }
+}
+
+function handleSubmit(evt) {
+  evt.preventDefault()
+  addProduct(evt.target.productName.value, evt.target.productDescription.value, event.target.tags.value, event.target.price.value)
+}
 
 export class AddProduct extends Component {
   constructor (props) {
@@ -33,7 +43,7 @@ export class AddProduct extends Component {
   render () {
     const user = this.props.user;
     const styles = this.props.styles;
-
+    const addProduct = this.props.addProduct;
     return (
     <div>
       <NavBar />
@@ -47,7 +57,7 @@ export class AddProduct extends Component {
             </Paper>
             <Paper style={styles.prodDescriptionContainer} zDepth={1} >
                 <div style={{display : 'block'}}>
-                  <form >
+                  <form  onSubmit={} >
                     <div style={styles.name}>
                       <TextField
                         name="productName"

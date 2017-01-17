@@ -34,6 +34,12 @@ router.get('/:id', (req, res, next) => {
 	.catch(next);
 })
 
+router.post('/', (req, res, next) => {
+	Product.create(req.body)
+	.then(newProduct => res.send(newProduct))
+	.catch(next);
+})
+
 
 module.exports = router
 
