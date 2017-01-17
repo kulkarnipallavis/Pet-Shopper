@@ -9,7 +9,6 @@ import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 import ClearIcon from 'material-ui/svg-icons/content/clear'
-import RaisedButton from 'material-ui/RaisedButton';
 
 import {deleteFromOrder} from '../reducers/cart';
 
@@ -29,21 +28,31 @@ export const ShoppingCart = (props) => {
 
   const products = props.products;
   const deleteProduct = props.deleteFromOrderDispatch;
-  
+
+  const convertPrice = (price) => {
+    price = price.toString()
+    price = price.split("")
+    price.splice(-2, 0, ".")
+    price = "$" + price.join("")
+    return price;
+  };
+
   return (
     <div style= {styles.cartContainer}>
       <div style={ styles.cart }>
-        <Link to="/home" style={ styles.heading }>Back to Shopping</Link>
         <Paper zDepth={1}>
           <Subheader style={ styles.subheadings }>Cart</Subheader>
           <List>
             {products && products.map((product, index) => (
-            <ListItem 
-              key={index} 
-              primaryText={product.name} 
-              rightIcon={<ClearIcon 
+            <ListItem
+              key={index}
+              primaryText={<div>
+                <div style={styles.itemName}>{product.name}</div>
+                <div style={styles.itemPrice}>{convertPrice(product.price)}</div>
+              </div>}
+              rightIcon={<ClearIcon
               onClick={() => deleteProduct(product)}/>}
-              /> 
+              />
             ))}
           </List>
         </Paper>
@@ -56,9 +65,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
 
 
 const styles = {
-  button : {
-    margin: 20
-  },
   heading : {
     fontFamily : "Roboto, sans-serif",
     textDecoration: "none",
@@ -70,7 +76,7 @@ const styles = {
     color: "#FA8072"
   },
   cartContainer: {
-    paddingTop: "9%",
+    paddingTop: "2%",
     float: "left",
     width: "60%"
   },
@@ -82,5 +88,11 @@ const styles = {
     paddingTop: "10%",
     float: "left",
     width: "30%"
-  }
+  },
+  itemName: {
+    float: "left"
+  },
+  itemPrice: {
+    float: "right"
+  },
 }

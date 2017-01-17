@@ -1,5 +1,7 @@
 #categoryNav{
   height: 400px;
-  padding: 5%;
   width: 100%;
+}
+html {
+  background: url(images/backgroundimage.jpg) repeat
 }
