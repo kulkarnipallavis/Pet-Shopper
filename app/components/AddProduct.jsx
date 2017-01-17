@@ -14,6 +14,7 @@ import MenuItem from 'material-ui/MenuItem';
 function mapStateToProps(state) {
   return {
     user: state.auth,
+    styles: styles
   }
 }
 
@@ -30,14 +31,19 @@ export class AddProduct extends Component {
     }
   }
   render () {
+    const user = this.props.user;
+    const styles = this.props.styles;
+
     return (
     <div>
       <NavBar />
-        {this.props.user && this.props.user.isAdmin ?
+        {user && user.isAdmin ?
           <div style={styles.root} >
             <Paper style={styles.prodImageContainer} zDepth={2} >
-               <Addbox />
-               <h1> Upload An Image </h1>
+              <div>
+                <Addbox color='#FA8072' />
+                <h1 style={styles.imageUpload}>Upload Image</h1>
+              </div>
             </Paper>
             <Paper style={styles.prodDescriptionContainer} zDepth={1} >
                 <div style={{display : 'block'}}>
@@ -87,12 +93,11 @@ export class AddProduct extends Component {
           </div>
           : <Forbidden />
         }
-  </div>)
+    </div>)
+    }
 }
-
-  }
   
-export default connect (mapStateToProps, mapDispatchToProps) (AddProduct)
+export default connect (mapStateToProps) (AddProduct)
 
 const styles = {
   root: {
@@ -105,21 +110,20 @@ const styles = {
     width: '40%', 
     margin : '20px'
   },
-  prodImage: {
-    maxWidth: '100%', 
-    height: '100%', 
-    display:'block', 
-    margin:'auto'
+  imageUpload: {
+    margin:'auto',
+    color: '#808080'
   },
   prodDescriptionContainer: {
     height: 'auto', 
     width: '40%', 
-    margin : '20px', 
-    display : 'block', 
-    position: 'relative'
+    margin : '20px',  
+    position: 'relative',
+    textAlign: 'left',
+    paddingLeft: '5%',
   },
   name:{
-    textAlign:'center'
+    textAlign:'left',
   },
   stockStatus:{
     textAlign:'center', 
@@ -140,10 +144,7 @@ const styles = {
     textAlign:'center'
   },
   buttonContainer:{
-    display : 'block', 
-    bottom: '0', position: 
-    'absolute', 
-    right:'0'
+ 
   },
   button:{ 
     display : 'block', 

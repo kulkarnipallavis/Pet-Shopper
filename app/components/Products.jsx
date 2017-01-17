@@ -7,43 +7,61 @@ import NavBar from './NavBar';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
+import Addbox from 'material-ui/svg-icons/content/add-box';
 
 function mapStateToProps(state, ownProps) {
-  return { products: state.products.allProducts }
+  return { 
+    products: state.products.allProducts,
+    user: state.auth
+  }
 }
 
 export const Products = (props) => {
   const products = props.products;
+  const user = props.user;
+  console.log("indside Products, ", products, user);
   return (
     <div>
-    <NavBar />
-     <div style={styles.root} id="gridlist">
-      <GridList
-        cellHeight={'auto'}
-        style={styles.gridList}
-        cols={3}
-      >
-        {products && products.map((product, index) => (
-          <GridTile
-            key={product.id}
-            value={index}
-          >
-          <Link to={`/products/${product.id}`}>
-            <Paper style={styles.product} zDepth={2} >
-              <div>
-                <img id='product-image' src={product.imageURL } style={styles.prodImage}/>
-                <div id='product-name' style={styles.centerElements}>
-                  {product.name}
+      <NavBar />
+      <div style={styles.root} id="gridlist">
+        <GridList
+          cellHeight={'auto'}
+          style={styles.gridList}
+          cols={3}
+        >
+          {products && products.map((product, index) => (
+            <GridTile
+              key={product.id}
+              value={index}
+            >
+            <Link to={`/products/${product.id}`}>
+              <Paper style={styles.product} zDepth={2} >
+                <div>
+                  <img id='product-image' src={product.imageURL } style={styles.prodImage}/>
+                  <div id='product-name' style={styles.centerElements}>
+                    {product.name}
+                  </div>
+                  <div style={styles.centerElements}>
+                    ${product.price}
+                  </div>
                 </div>
-                <div style={styles.centerElements}>
-                  ${product.price}
+              </Paper>
+              </Link>
+            </GridTile>
+          ))}
+          {user && user.isAdmin ?
+            <GridTile>
+              <Link to="/products/addproduct">
+              <Paper style={styles.product} zDepth={2} >
+                <div style={styles.addProduct} >
+                  <Addbox color="#FA8072"/>
+                  <h2 style={styles.addProductHeader} >Add Product</h2>
                 </div>
-              </div>
-            </Paper>
-            </Link>
-          </GridTile>
-        ))}
-      </GridList>
+              </Paper>
+              </Link>
+            </GridTile>
+          : null}    
+        </GridList>
     </div>
   </div>)
 }
@@ -76,4 +94,13 @@ const styles = {
   centerElements: {
     textAlign:'center'
   },
+  addProduct: {
+    textDecoration: 'none',
+    color: '#808080',
+  },
+  addProductHeader: {
+    textDecoration: 'none',
+    textAlign: 'center',
+    paddingTop: '15%'
+  }
 };

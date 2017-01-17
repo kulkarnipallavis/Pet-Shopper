@@ -36,7 +36,7 @@ render (
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
-        <Route path='/products/admin' component={AddProduct} />
+        <Route path='/products/addproduct' component={AddProduct} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
         <Route path="/products/categories/:id" component={Products} />
       </Router>
