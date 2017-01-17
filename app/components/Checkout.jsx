@@ -30,8 +30,6 @@ function mapDispatchToProps(dispatch, ownProps) {
     dispatchCompleteOrder: function() {
       dispatch(completeOrder());
     }
-    // save shipping, payment, billing to backend? (do we need it?)
-    // send email?
   }
 }
 
@@ -40,7 +38,6 @@ class Checkout extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
     this.handleSumbit = this.handleSumbit.bind(this);
   }
@@ -183,7 +180,6 @@ class Checkout extends React.Component {
       this.setState({stepIndex: stepIndex + 1});
     }
     if (stepIndex === 2) {
-      // dispatch things
       this.props.dispatchCompleteOrder();
       browserHistory.push("/");
     }
