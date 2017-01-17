@@ -53,7 +53,6 @@ export const getSelectedProduct = (id) =>
   dispatch =>
     axios.get(`/api/products/${id}`)
       .then(response => {
-        console.log(response.data)
         const selectedProduct = response.data
         dispatch(setSelectedProduct(selectedProduct))
 })

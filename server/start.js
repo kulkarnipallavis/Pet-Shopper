@@ -24,13 +24,7 @@ module.exports = app
   .use(require('cookie-session') ({
     name: 'session',
     keys: [process.env.SESSION_SECRET || 'an insecure secret key']
-    // maxAge: 10 * 60 * 1000
   }))
-
-  // //set maxAge default of session
-  // .use(function(req, res, next) {
-  //   req.sessionOptions.maxAge = req.session.maxAge || req.sessionOptions.maxAge
-  // })
 
   // Body parsing middleware
   .use(bodyParser.urlencoded({ extended: true }))
