@@ -30,7 +30,7 @@ const onSingleProductEnter = (nextRouterState) => {
 }
 
 const onCartEnter = () => {
-  store.dispatch(fetchOrder());
+  store.dispatch(fetchOrder())
 }
 
 render (

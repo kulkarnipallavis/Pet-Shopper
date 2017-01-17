@@ -10,7 +10,7 @@ const reducer = (state=initialState, action) => {
 	const newState = Object.assign({}, state)
 
 	switch(action.type) {
-		case GET_ORDER:
+		case SET_ORDER:
 			newState.products = action.products;
 			break;
 		case UPDATE_ORDER:
@@ -25,20 +25,20 @@ const reducer = (state=initialState, action) => {
 	return newState
 }
 
-const GET_ORDER = 'GET_ORDER'
-export const getOrder = (products) => ({
-	type: GET_ORDER,
+const SET_ORDER = 'SET_ORDER'
+export const setOrder = products => ({
+	type: SET_ORDER,
 	products
 })
 
 const UPDATE_ORDER = 'UPDATE_ORDER'
-export const updateOrder = (products) => ({
+export const updateOrder = products => ({
 	type: UPDATE_ORDER,
 	products
 })
 
 const UPDATE_TOTAL = 'UPDATE_TOTAL'
-export const updateTotal = (orderTotal) => ({
+export const updateTotal = orderTotal => ({
 	type : UPDATE_TOTAL,
 	orderTotal
 })
@@ -47,7 +47,7 @@ export const fetchOrder = () => dispatch => {
 	axios.get('/api/orders')
 	.then(response => {
 		const products = response.data
-		dispatch(getOrder(products))
+		dispatch(setOrder(products))
 	})
 }
 

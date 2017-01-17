@@ -14,7 +14,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {deleteFromOrder} from '../reducers/cart';
 
 const mapStateToProps = (state, ownProps) => {
-  return { products : state.cart.products.products }
+  return { products : state.cart.products }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export const ShoppingCart = (props) => {
 
-  const styles = {
+    const styles = {
     button : {
       margin: 20
     },
@@ -58,6 +58,7 @@ export const ShoppingCart = (props) => {
   }
 
   const products = props.products;
+  console.log(products)
   const deleteProduct = props.deleteFromOrderDispatch;
   
   return (
@@ -81,6 +82,5 @@ export const ShoppingCart = (props) => {
     </div>
   )
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)

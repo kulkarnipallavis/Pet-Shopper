@@ -66,14 +66,13 @@ function syncDbOrder(user, sessionOrder) {
 
 router.get('/', (req, res, next) => {
 	const productIds = req.session.order.products;
-		return Product.findAllById(productIds)
-	.then((productsArray) => {
-		return Promise.all(productsArray)
-	})
-	.then((products) => {
+
+	Promise.all(Product.findAllById(productIds))
+	.then(products => {
+		console.log(products)
 		res.send(products)
 	})
-	.catch(next);
+
 });
 
 // add single product to cart
@@ -88,11 +87,7 @@ router.post('/', (req, res, next) => {
 		return Product.findAllById(productIds)
 	})
 	.then((productsArray) => {
-		return Promise.all(productsArray)
-	})
-	.then((products) => {
-		console.log(products)
-		res.send(products)
+		res.send(productsArray)
 	})
 	.catch(next);
 });
@@ -103,9 +98,14 @@ router.post('/delete', (req, res, next) => {
 	req.session.order.products.splice(index, 1);
 	req.session.order.total = req.body.total;
 	req.session.order.totalItems = req.session.order.products.length
-
 	syncDbOrder(req.user, req.session.order)
-	.then(() => res.send(req.session.order))
+	.then(() => {
+		const productIds = req.session.order.products;
+		return Product.findAllById(productIds)
+	})
+	.then((products) => {
+		res.send(products)
+	})
 	.catch(next);
 });
 
