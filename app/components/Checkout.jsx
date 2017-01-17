@@ -1,5 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import NavBar from './NavBar';
+import AddressForm from './AddressForm';
+import CardForm from './CardForm';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
@@ -8,8 +11,11 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 import ArrowForwardIcon from 'material-ui/svg-icons/navigation/arrow-forward';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import FontIcon from 'material-ui/FontIcon';
 
 /**
  * It is possible to specify your own step connector by passing an element to the `connector`
@@ -19,12 +25,13 @@ class Checkout extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleNext = this.handleNext.bind(this);
+    //this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
+    this.handleSumbit = this.handleSumbit.bind(this);
   }
 
   state = {
-    stepIndex: 0,
+    stepIndex: 1,
     shipping: {
       firstName: '',
       lastName: '',
@@ -33,8 +40,7 @@ class Checkout extends React.Component {
       zip: '',
       city: '',
       country: '',
-      state: '',
-      email: ''
+      state: ''
     },
     billing: {
       firstName: '',
@@ -44,68 +50,28 @@ class Checkout extends React.Component {
       zip: '',
       city: '',
       country: '',
-      state: '',
-      email: ''
+      state: ''
     },
     payment: {
       creditCardNumber: '',
       expMonth: '',
       expYear: '',
       cvv: '',
-      sameAddress: false
-    }
+    },
+    sameAddress: false
   };
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: // shipping
         return (
-          <div>
-            <div>
-              <TextField
-                hintText="First Name"
-                style={{margin: "10px", width: "40%"}}
-              />
-              <TextField
-                hintText="Last Name"
-                style={{margin: "10px", width: "40%"}}
-              />
-            </div>
-            <TextField
-                hintText="Address 1"
-                style={{marginLeft: "10px", width: "80%"}}
-            />
-            <TextField
-                hintText="Address 2 (optional)"
-                style={{margin: "10px", width: "100%"}}
-            />
-            <div>
-              <TextField
-                hintText="City"
-                style={{margin: "10px"}}
-              />
-              <TextField
-                hintText="Zip Code"
-                style={{margin: "10px"}}
-              />
-            </div>
-            <div>
-              <TextField
-                hintText="Country"
-                style={{margin: "10px"}}
-              />
-              <TextField
-                hintText="State"
-                style={{margin: "10px"}}
-              />
-            </div>
-          </div>
+          <AddressForm/>
         );
 
       case 1: // payment
         return (
           <div>
-
+            <CardForm/>
           </div>
         );
 
@@ -121,9 +87,50 @@ class Checkout extends React.Component {
     }
   }
 
-  handleNext() {
+  handleSumbit(e) {
+    e.preventDefault();
     const {stepIndex} = this.state;
 
+    if (stepIndex === 0) {
+      const shippingInput = {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        address1: e.target.address1.value,
+        address2: e.target.address2.value,
+        zip: e.target.zip.value,
+        city: e.target.city.value,
+        country: e.target.country.value,
+        state: e.target.state.value
+      };
+      this.setState({
+        shipping: shippingInput
+      });
+    }
+    if (stepIndex === 1) {
+      const billingInput = (e.target.isSame.value) ? this.state.shipping
+        : {
+            firstName: e.target.firstName.value,
+            lastName: e.target.lastName.value,
+            address1: e.target.address1.value,
+            address2: e.target.address2.value,
+            zip: e.target.zip.value,
+            city: e.target.city.value,
+            country: e.target.country.value,
+            state: e.target.state.value
+          };
+      const paymentInput = {
+        creditCardNumber: e.target.creditCardNumber.value,
+        expMonth: e.target.expMonth.value,
+        expYear: e.target.expYear.value,
+        cvv: e.target.cvv.value
+      };
+      console.log(e.target.expMonth)
+      this.setState({
+        billing: billingInput,
+        payment: paymentInput,
+        sameAddress: e.target.isSame.value
+      });
+    }
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
@@ -139,43 +146,49 @@ class Checkout extends React.Component {
 
   render() {
     const {stepIndex} = this.state;
-
     return (
-      <div style={{width: '100%', maxWidth: 700, margin: 'auto', fontFamily : "Roboto, sans-serif"}}>
-        <RaisedButton
-            label='Back to Cart'
-        />
-        <Paper zDepth={2} style={{padding: "20px", margin: "10px"}}>
-        <Stepper activeStep={stepIndex} connector={<ArrowForwardIcon />}>
-          <Step>
-            <StepLabel>Shipping Info</StepLabel>
-          </Step>
-
-          <Step>
-            <StepLabel>Payment Method</StepLabel>
-          </Step>
-
-          <Step>
-            <StepLabel>Review</StepLabel>
-          </Step>
-        </Stepper>
-
-        {this.getStepContent(stepIndex)}
-
-        <div style={{marginTop: 24, marginBottom: 12}}>
-          <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            onTouchTap={this.handlePrev}
-            style={{marginRight: 12}}
-          />
+      <div>
+        <NavBar/>
+        <div style={{width: '100%', maxWidth: 700, margin: 'auto', fontFamily : "Roboto, sans-serif"}}>
           <RaisedButton
-            label={stepIndex === 2 ? 'Finish' : 'Next'}
-            primary={true}
-            onTouchTap={this.handleNext}
+              label='Back to Cart'
+              icon={<FontIcon><ChevronLeft/></FontIcon>}
+              style={{margin: "10px"}}
           />
+          <Paper zDepth={2} style={{padding: "20px", margin: "10px"}}>
+          <Stepper activeStep={stepIndex} connector={<ArrowForwardIcon />}>
+            <Step>
+              <StepLabel>Shipping Info</StepLabel>
+            </Step>
+
+            <Step>
+              <StepLabel>Payment Method</StepLabel>
+            </Step>
+
+            <Step>
+              <StepLabel>Review</StepLabel>
+            </Step>
+          </Stepper>
+
+          <form onSubmit={this.handleSumbit}>
+          {this.getStepContent(stepIndex)}
+
+          <div style={{marginTop: 24, marginBottom: 12}}>
+            <FlatButton
+              label="Back"
+              disabled={stepIndex === 0}
+              onTouchTap={this.handlePrev}
+              style={{marginRight: 12}}
+            />
+            <RaisedButton
+              type="submit"
+              label={stepIndex === 2 ? 'Finish' : 'Next'}
+              primary={true}
+            />
+          </div>
+          </form>
+          </Paper>
         </div>
-        </Paper>
       </div>
     );
   }

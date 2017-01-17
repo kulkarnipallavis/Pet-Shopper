@@ -62,15 +62,15 @@ const styles = {
     overflowY: 'auto',
   },
   product: {
-    maxWidth: '250px', 
-    height: '200px', 
-    width: 'auto', 
+    maxWidth: '250px',
+    height: '200px',
+    width: 'auto',
     margin : '20px'
   },
   prodImage: {
-    maxHeight: '150px', 
-    width: 'auto', 
-    display:'block', 
+    maxHeight: '150px',
+    width: 'auto',
+    display:'block',
     margin:'auto'
   },
   centerElements: {
