@@ -20,7 +20,6 @@ import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/pr
 injectTapEventPlugin()
 
 const onProductsEnter = (nextRouterState) => {
-  console.log(nextRouterState);
   store.dispatch(getAllProducts());
   if (nextRouterState.params.id) {
     store.dispatch(getListProducts( undefined, undefined, nextRouterState.params.id));
