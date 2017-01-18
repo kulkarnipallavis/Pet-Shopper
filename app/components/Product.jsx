@@ -11,7 +11,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {addToOrder} from '../reducers/cart';
 
 function mapStateToProps(state) {
-  return { selectedProduct: state.products.selectedProduct }
+  return {
+    selectedProduct: state.products.selectedProduct,
+    cartSize: state.cart.products.length,
+    lastAdded: state.cart.products[state.cart.products.length - 1]
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -24,6 +28,7 @@ function mapDispatchToProps(dispatch) {
 
 export const Product = (props) => {
   const product = props.selectedProduct;
+
   const convertPrice = (price) => {
     if (!price) return null;
     price = price.toString()
@@ -32,6 +37,11 @@ export const Product = (props) => {
     price = "$" + price.join("")
     return price;
   };
+  let added = false;
+
+  console.log(props.lastAdded)
+  console.log(props.selectedProduct)
+  if (props.lastAdded) added = (product.id === props.lastAdded.id);
 
   return (
     <div>
@@ -41,7 +51,7 @@ export const Product = (props) => {
            <img src={product.imageURL } style={styles.prodImage}/>
         </Paper>
 
-        <Paper style={styles.prodDescriptionContainer} zDepth={1} >
+        <Paper style={styles.prodDescriptionContainer} zDepth={2} >
             <div style={{display : 'block'}}>
               <div style={styles.name}>
                 <h2>{product.name}</h2>
@@ -76,6 +86,15 @@ export const Product = (props) => {
             </div>
         </Paper>
     </div>
+    { (added)
+    ? (<Paper style={styles.cart} zDepth={2} >
+        <div>Added 1 {product.name} to the cart.  You now have {props.cartSize} items in your cart.</div>
+        <br/>
+        <RaisedButton label="Browse Products" labelColor='white'style={styles.button} backgroundColor="darkgrey" href="/products"/>
+        <RaisedButton label="View Cart" labelColor='white'style={styles.button} backgroundColor="grey" href="/cart"/>
+      </Paper>)
+    : null
+    }
   </div>)
 }
 
@@ -86,6 +105,15 @@ const styles = {
     height: '70%',
     display: 'flex',
     justifyContent: 'space-around',
+  },
+  cart: {
+    width: '70%',
+    textAlign:'center',
+    margin: 'auto',
+    padding: '20px'
+  },
+  message: {
+    margin : '30px'
   },
   prodImageContainer: {
     maxHeight: '400px',
@@ -137,8 +165,7 @@ const styles = {
     right:'0'
   },
   button:{
-    display : 'block',
-    margin: 'auto'
+    margin: '10px'
   }
 }
 
