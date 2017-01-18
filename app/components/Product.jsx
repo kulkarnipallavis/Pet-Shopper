@@ -39,8 +39,6 @@ export const Product = (props) => {
   };
   let added = false;
 
-  console.log(props.lastAdded)
-  console.log(props.selectedProduct)
   if (props.lastAdded) added = (product.id === props.lastAdded.id);
 
   return (
