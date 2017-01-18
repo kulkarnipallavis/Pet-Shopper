@@ -246,7 +246,9 @@ class Checkout extends React.Component {
           <RaisedButton
               label='Back to Cart'
               href="/cart"
-              icon={<FontIcon><ChevronLeft/></FontIcon>}
+              icon={<FontIcon ><ChevronLeft color='#FFFFFF'/></FontIcon>}
+              backgroundColor="darkgrey"
+              labelColor='white'
               style={{margin: "10px"}}
           />
           <Paper zDepth={2} style={{padding: "20px", margin: "10px"}}>
