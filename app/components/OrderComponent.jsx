@@ -41,7 +41,7 @@ export const OrderComponent = (props) => {
             primaryText= {`Total:  $${total}`}
             />
         </List>
-        <RaisedButton type="submit" value="checkout" label="Proceed To Checkout" href="/checkout" labelColor="white" backgroundColor="#FA8072" style={ styles.button }  />
+        <RaisedButton type="submit" value="checkout" label="Proceed To Checkout" href="/checkout" labelColor="white" backgroundColor="#FA8072" style={ styles.button } disabled={(props.total === 0)} />
       </Paper>
     </div>
   )
