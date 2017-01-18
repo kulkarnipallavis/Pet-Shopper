@@ -72,7 +72,8 @@ render (
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
         <Route path="/checkout" component={Checkout} onEnter={onCheckoutEnter}/>
-      <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
+        <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
+        <Route path="/*" component={LandingPage} />
       </Router>
     </Provider>
   </MuiThemeProvider>,

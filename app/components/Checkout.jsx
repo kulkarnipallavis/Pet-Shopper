@@ -39,6 +39,7 @@ class Checkout extends React.Component {
     super(props);
     this.handlePrev = this.handlePrev.bind(this);
     this.handleSumbit = this.handleSumbit.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
   }
 
   state = {
@@ -72,10 +73,14 @@ class Checkout extends React.Component {
     sameAddress: false
   };
 
+  handleCheck(event, isChecked) {
+    this.setState({sameAddress: isChecked});
+  }
+
   getStepContent(stepIndex) {
 
     const convertPrice = (price) => {
-      if (!price) return "$0.00"
+      if (!price) return;
       price = price.toString()
 
       while (price.length < 3) price = "0" + price;
@@ -88,13 +93,13 @@ class Checkout extends React.Component {
     switch (stepIndex) {
       case 0: // shipping
         return (
-          <AddressForm/>
+          <AddressForm address={this.state.shipping}/>
         );
 
       case 1: // payment
         return (
           <div>
-            <CardForm/>
+            <CardForm payment={this.state.payment} address={this.state.billing} same={this.state.sameAddress} handleCheck={this.handleCheck}/>
           </div>
         );
 
@@ -128,9 +133,18 @@ class Checkout extends React.Component {
             </div>
             <div>
               <h3>Payment</h3>
-                {Object.keys(this.state.payment).map(key => (
-                <div key={key} style={{marginLeft: "20px"}}><b>{key}: </b>{this.state.payment[key]}</div>
-                ))}
+                <div style={{marginLeft: "20px"}}>
+                  <b>{"Credit Card Number"}: </b>
+                  {`**** **** **** ${this.state.payment.creditCardNumber.substr(-4, 4)}`}
+                </div>
+                <div style={{marginLeft: "20px"}}>
+                  <b>{"Expiration"}: </b>
+                  {`${this.state.payment.expMonth} ${this.state.payment.expYear}`}
+                </div>
+                <div style={{marginLeft: "20px"}}>
+                  <b>{"CVV"}: </b>
+                  {`***`}
+                </div>
             </div>
             <div>
               <h3>Billing</h3>
@@ -176,7 +190,7 @@ class Checkout extends React.Component {
       });
     }
     if (stepIndex === 1) {
-      const billingInput = (e.target.isSame.value) ? this.state.shipping
+      const billingInput = (this.state.sameAddress) ? this.state.shipping
         : {
             firstName: e.target.firstName.value,
             lastName: e.target.lastName.value,
@@ -195,8 +209,7 @@ class Checkout extends React.Component {
       };
       this.setState({
         billing: billingInput,
-        payment: paymentInput,
-        sameAddress: e.target.isSame.value
+        payment: paymentInput
       });
     }
     if (stepIndex < 2) {
