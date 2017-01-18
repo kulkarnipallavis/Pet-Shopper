@@ -9,9 +9,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 const mapStateToProps = state => {
+	console.log("state!!!!!!!!!!", state);
 	return {
 		orderHistory : state.userAccount.orderHistory,
-		currentOrder : state.userAccount.currentOrder
+		currentOrder : state.userAccount.currentOrder,
+		userId : state.auth.id
 	} 
 }
 
@@ -19,10 +21,10 @@ const mapDispatchToProps = (dispatch) => {
 	// console.log(getState());
 	const id = 1 ;//getState().auth.user.id;
 	return {
-		getCurrentOrderDispatch : (id) => {
+		getCurrentOrderDispatch : (userId) => {
 			dispatch(getCurrentOrder(id));
 		},
-		getOrderHistoryDispatch : () => {
+		getOrderHistoryDispatch : (userId) => {
 			dispatch(getOrderHistory());
 		}
 	}

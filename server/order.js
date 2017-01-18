@@ -73,6 +73,21 @@ router.get('/', (req, res, next) => {
 	})
 });
 
+router.get('/:userId', (req, res, next) => {
+	// if(req.query.status === 'active')
+
+		Order.findAll({
+			where: {
+				user_id : req.params.userId,
+				status : req.query.status
+			}
+		}).then(orders => {
+			res.send(orders)
+		})
+		
+	
+});
+
 // add single product to cart
 // expects post data = {"product": {"id": 4}, "total": "20.00"}
 router.post('/', (req, res, next) => {

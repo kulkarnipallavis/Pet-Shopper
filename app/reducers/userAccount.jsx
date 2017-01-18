@@ -25,11 +25,12 @@ export const setOrderHistory = (orderHistory) => ({
   orderHistory
 })
 
-export const getOrderHistory = () => (dispatch) => {
+export const getOrderHistory = (userId) => (dispatch) => {
 	// axios.get(`/api/order/${id}`)
-	axios.get('/api/orders')
+	axios.get(`/api/orders/${userId}?status='complete'`)
 		.then(res=>{
 			const orderHistory = res.data
+			console.log("orderHistory.....", orderHistory)
 			dispatch(setOrderHistory(orderHistory))
 		})
 
@@ -41,10 +42,11 @@ export const setCurrentOrder = (currentOrder) => ({
   currentOrder
 })
 
-export const getCurrentOrder = (id) => (dispatch) => {
-	axios.get(`/api/order/${id}`)
+export const getCurrentOrder = (userId) => (dispatch) => {
+	axios.get(`/api/orders/${userId}?status='active'`)
 		.then(res=>{
 			const currentOrder = res.data
+			console.log("currentOrder.....", currentOrder)
 			dispatch(setCurrentOrder(currentOrder))
 		})
 
