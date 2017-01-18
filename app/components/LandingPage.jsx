@@ -7,7 +7,7 @@ export default () => {
 	return (
 		<div>
 		 <NavBar/>
-  		<div id="container" style={{'backgroundImage': 'url(images/backgroundimage.jpg)', backgroundRepeat: 'repeat'}}>
+  		<div id="container">
   			<img src="/images/BannerImage.jpg" style={{'display': 'block', 'margin': 'auto', 'height': '50vh', 'width':'auto'}}/>
 			<ProductNavigation />
   		</div>

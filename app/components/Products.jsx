@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -17,9 +18,25 @@ function mapStateToProps(state, ownProps) {
 
 export const Products = (props) => {
   const products = props.listProducts;
+  const convertPrice = (price) => {
+    price = price.toString()
+    price = price.split("")
+    price.splice(-2, 0, ".")
+    price = "$" + price.join("")
+    return price;
+  };
   return (
     <div>
     <NavBar />
+    {(products.length < props.products.length)
+       ? <RaisedButton
+          label="View All Products"
+          href="/products"
+          style={styles.button}
+          backgroundColor="darkgrey"
+          labelColor="white"
+          />
+       : null}
      <div style={styles.root} id="gridlist">
       <GridList
         cellHeight={'auto'}
@@ -39,7 +56,7 @@ export const Products = (props) => {
                   {product.name}
                 </div>
                 <div style={styles.centerElements}>
-                  ${product.price}
+                  {convertPrice(product.price)}
                 </div>
               </div>
             </Paper>
@@ -67,17 +84,20 @@ const styles = {
   product: {
     maxWidth: '250px',
     height: '200px',
-    width: 'auto',
+    width: '100%',
     margin : '20px'
   },
   prodImage: {
     maxHeight: '150px',
-    width: 'auto',
+    maxWidth: '100%',
     display:'block',
     margin:'auto'
   },
   centerElements: {
     textAlign:'center'
   },
+  button: {
+    margin: '15px'
+  }
 };
 

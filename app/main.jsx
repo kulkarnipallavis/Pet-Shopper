@@ -15,13 +15,13 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
+
 import Products from './components/Products'
 import Product from './components/Product'
 import Checkout from './components/Checkout'
 
 import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
 import {getCategories} from './reducers/categories';
-
 import {fetchOrder, setTotal} from './reducers/cart'
 
 injectTapEventPlugin();

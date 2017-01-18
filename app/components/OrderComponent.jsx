@@ -64,7 +64,7 @@ const styles = {
     color: "#FA8072"
   },
   order: {
-    paddingTop: "10%",
+    paddingTop: "2%",
     float: "left",
     width: "30%"
   }
