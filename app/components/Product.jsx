@@ -86,7 +86,7 @@ export const Product = (props) => {
     </div>
     { (added)
     ? (<Paper style={styles.cart} zDepth={2} >
-        <div>Added 1 {product.name} to the cart.  You now have {props.cartSize} items in your cart.</div>
+        <div>Added 1 {product.name} to the cart.  You now have {props.cartSize} item{(props.cartSize !== 1) ? "s" : null} in your cart.</div>
         <br/>
         <RaisedButton label="Browse Products" labelColor='white'style={styles.button} backgroundColor="darkgrey" href="/products"/>
         <RaisedButton label="View Cart" labelColor='white'style={styles.button} backgroundColor="grey" href="/cart"/>
