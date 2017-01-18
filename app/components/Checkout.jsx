@@ -236,7 +236,7 @@ class Checkout extends React.Component {
         <NavBar/>
          <div style={{width: '100%', maxWidth: 700, margin: 'auto', fontFamily : "Roboto, sans-serif"}}>
         {(this.props.cart.products.length === 0)
-          ? (<Paper zDepth={2} style={{width: '70%', textAlign:'center', margin: '30px', padding: '20px'}} >
+          ? (<Paper zDepth={2} style={{width: '70%', textAlign:'center', margin: 'auto', marginTop: '30px',padding: '20px'}} >
               <div>You have no items in your cart.</div>
               <br/>
               <RaisedButton label="Browse Products" labelColor='white' backgroundColor="darkgrey" href="/products"/>
