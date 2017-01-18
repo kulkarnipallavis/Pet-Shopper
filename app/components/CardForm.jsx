@@ -74,29 +74,3 @@ class CardForm extends React.Component {
 }
 
 export default connect()(CardForm);
-
-// can't get values, but if we have time...
-
-// <DropDownMenu name="expMonth" value={1} >
-//             <MenuItem value={1} primaryText="Jan" />
-//             <MenuItem value={2} primaryText="Feb" />
-//             <MenuItem value={3} primaryText="Mar" />
-//             <MenuItem value={4} primaryText="Apr" />
-//             <MenuItem value={5} primaryText="May" />
-//             <MenuItem value={6} primaryText="Jun" />
-//             <MenuItem value={7} primaryText="Jul" />
-//             <MenuItem value={8} primaryText="Aug" />
-//             <MenuItem value={9} primaryText="Sep" />
-//             <MenuItem value={10} primaryText="Oct" />
-//             <MenuItem value={11} primaryText="Nov" />
-//             <MenuItem value={12} primaryText="Dec" />
-//           </DropDownMenu>
-//           <DropDownMenu name="expYear" value={2017} >
-//             <MenuItem value={2017} primaryText="2017" />
-//             <MenuItem value={2018} primaryText="2018" />
-//             <MenuItem value={2019} primaryText="2019" />
-//             <MenuItem value={2020} primaryText="2020" />
-//             <MenuItem value={2021} primaryText="2021" />
-//             <MenuItem value={2022} primaryText="2022" />
-//             <MenuItem value={2023} primaryText="2023" />
-//           </DropDownMenu>
