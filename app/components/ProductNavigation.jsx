@@ -22,7 +22,8 @@ const mapDispatchToProps = (dispatch) => {
 export const ProductNavigation = (props) => { 
   const styles = {
       root: {
-        display: 'flex'
+        display: 'flex',
+        marginTop: '5%'
       },
       gridList: {
         display: 'flex',
@@ -33,12 +34,18 @@ export const ProductNavigation = (props) => {
       },
       gridTile: {
           width: 'auto',
-          height: '100%',
+          height: '250px',
           margin: '5%'
       },
       titleStyle: {
         color: '#FAFAFA',
         fontSize: '1.2em'
+      },
+      tileImage: {
+        maxHeight: '200px',
+        maxWidth: '100%',
+        display:'block',
+        margin:'auto'
       },
       paperStyle: {
       margin: 'auto'
@@ -58,7 +65,7 @@ export const ProductNavigation = (props) => {
             titleBackground='#FA8072'
           >
           <Link to={`/products/categories/${tile.id}`}>
-            <img src={tile.imageURL} />
+            <img src={tile.imageURL} style={styles.tileImage}/>
           </Link>
           </GridTile></Paper>
         ))}
