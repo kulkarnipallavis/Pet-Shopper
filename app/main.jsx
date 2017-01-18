@@ -13,12 +13,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import SignUp from './components/SignUp'
 import {Options} from './components/SignInOptions'
-<<<<<<< HEAD
 
-import Products from './components/Products'
-import Product from './components/Product'
-
-=======
 import Products from './components/Products'
 import Product from './components/Product'
 
@@ -26,7 +21,6 @@ import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/pr
 import {getCategories} from './reducers/categories';
 
 import {fetchOrder, setTotal} from './reducers/cart'
->>>>>>> aa453c0935197e5d063bcfe0289e1c396a3f8282
 
 injectTapEventPlugin();
 
@@ -62,16 +56,10 @@ render (
         <Route path="/" component={LandingPage} onEnter={onLandingPageEnter}/>
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-<<<<<<< HEAD
-        <Route path="/products" component={Products} />
-        <Route path="/products/:id" component={Product} />
-      <Route path="/products/categories/:id" component={Products} />
-=======
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
       <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
->>>>>>> aa453c0935197e5d063bcfe0289e1c396a3f8282
       </Router>
     </Provider>
   </MuiThemeProvider>,
