@@ -52,6 +52,9 @@ const onSingleProductEnter = (nextRouterState) => {
 const onCartEnter = () => {
   store.dispatch(fetchOrder())
 }
+const onCheckoutEnter = () => {
+  store.dispatch(fetchOrder())
+}
 
 const onLandingPageEnter = () => {
   store.dispatch(getCategories());
@@ -68,7 +71,7 @@ render (
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
-        <Route path="/checkout" component={Checkout} />
+        <Route path="/checkout" component={Checkout} onEnter={onCheckoutEnter}/>
       <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
       </Router>
     </Provider>
