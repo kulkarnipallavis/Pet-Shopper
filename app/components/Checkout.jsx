@@ -75,7 +75,7 @@ class Checkout extends React.Component {
   getStepContent(stepIndex) {
 
     const convertPrice = (price) => {
-      if (!price) return "$0.00"
+      if (!price) return;
       price = price.toString()
 
       while (price.length < 3) price = "0" + price;
@@ -128,9 +128,18 @@ class Checkout extends React.Component {
             </div>
             <div>
               <h3>Payment</h3>
-                {Object.keys(this.state.payment).map(key => (
-                <div key={key} style={{marginLeft: "20px"}}><b>{key}: </b>{this.state.payment[key]}</div>
-                ))}
+                <div style={{marginLeft: "20px"}}>
+                  <b>{"Credit Card Number"}: </b>
+                  {`**** **** **** ${this.state.payment.creditCardNumber.substr(-4, 4)}`}
+                </div>
+                <div style={{marginLeft: "20px"}}>
+                  <b>{"Expiration"}: </b>
+                  {`${this.state.payment.expMonth} ${this.state.payment.expYear}`}
+                </div>
+                <div style={{marginLeft: "20px"}}>
+                  <b>{"CVV"}: </b>
+                  {`***`}
+                </div>
             </div>
             <div>
               <h3>Billing</h3>
