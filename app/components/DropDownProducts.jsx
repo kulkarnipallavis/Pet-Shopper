@@ -24,6 +24,7 @@ export default class DropDownProducts extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
+    this.handleRequestChange = this.handleRequestChange.bind(this);
   };
 
   handleSubmit(value) {
@@ -43,10 +44,17 @@ export default class DropDownProducts extends React.Component {
     });
   };
 
-  handleOpenMenu = () => {
+  handleOpenMenu() {
     this.setState({
-      openMenu: true,
+      openMenu: true
     });
+  }
+
+  handleRequestChange(open, reason) {
+    if (open && (reason === "iconTap")) this.setState({openMenu: true});
+    if (!open) {
+      if ((reason === "clickAway") || (reason === "escape")) this.setState({openMenu: false});
+    }
   }
 
   render() {
@@ -64,7 +72,7 @@ export default class DropDownProducts extends React.Component {
           touchTapCloseDelay={0}
           onItemTouchTap={this.handleClick}
           open={this.state.openMenu}
-          onTouchTap={this.handleOpenMenu}
+          onRequestChange={this.handleRequestChange}
         >
           <MenuItem value="Products" primaryText="Browse All Products" containerElement={<Link to="/products" />}/>
           <Divider />
