@@ -39,6 +39,7 @@ class Checkout extends React.Component {
     super(props);
     this.handlePrev = this.handlePrev.bind(this);
     this.handleSumbit = this.handleSumbit.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
   }
 
   state = {
@@ -72,6 +73,10 @@ class Checkout extends React.Component {
     sameAddress: false
   };
 
+  handleCheck(event, isChecked) {
+    this.setState({sameAddress: isChecked});
+  }
+
   getStepContent(stepIndex) {
 
     const convertPrice = (price) => {
@@ -88,13 +93,13 @@ class Checkout extends React.Component {
     switch (stepIndex) {
       case 0: // shipping
         return (
-          <AddressForm/>
+          <AddressForm address={this.state.shipping}/>
         );
 
       case 1: // payment
         return (
           <div>
-            <CardForm/>
+            <CardForm payment={this.state.payment} address={this.state.billing} same={this.state.sameAddress} handleCheck={this.handleCheck}/>
           </div>
         );
 
@@ -185,7 +190,7 @@ class Checkout extends React.Component {
       });
     }
     if (stepIndex === 1) {
-      const billingInput = (e.target.isSame.value) ? this.state.shipping
+      const billingInput = (this.state.sameAddress) ? this.state.shipping
         : {
             firstName: e.target.firstName.value,
             lastName: e.target.lastName.value,
@@ -204,8 +209,7 @@ class Checkout extends React.Component {
       };
       this.setState({
         billing: billingInput,
-        payment: paymentInput,
-        sameAddress: e.target.isSame.value
+        payment: paymentInput
       });
     }
     if (stepIndex < 2) {
