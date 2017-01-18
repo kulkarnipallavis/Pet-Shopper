@@ -37,7 +37,6 @@ function mapDispatchToProps(dispatch, ownProps) {
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
-
     this.handlePrev = this.handlePrev.bind(this);
     this.handleSumbit = this.handleSumbit.bind(this);
   }
@@ -74,6 +73,18 @@ class Checkout extends React.Component {
   };
 
   getStepContent(stepIndex) {
+
+    const convertPrice = (price) => {
+      if (!price) return "$0.00"
+      price = price.toString()
+
+      while (price.length < 3) price = "0" + price;
+      price = price.split("")
+      price.splice(-2, 0, ".")
+      price = "$" + price.join("")
+      return price;
+    }
+
     switch (stepIndex) {
       case 0: // shipping
         return (
@@ -92,11 +103,23 @@ class Checkout extends React.Component {
           <div>
             <div>
               <h3>Order</h3>
-                <div style={{marginLeft: "20px"}}><b>Total: </b>${this.props.cart.total}</div>
-              {this.props.cart.products.map(product => (
-                <div key={product.id} style={{marginLeft: "20px"}}>{product.name}</div>
-              ))}
+              <div>
+              {this.props.cart.products.map((product, i) => (
+                <div key={i} style={{marginLeft: "20px", display: "block", width: "55%"}}>
+                  <div style={{float: "left"}}>{product.name}</div>
+                  <div style={{float: "right"}}>{convertPrice(product.price)}</div>
+                  <br/>
+                </div>
+              ))
+              }
+              </div>
+              <div style={{marginLeft: "20px", width: "55%"}}>
+                <br/>
+                <b style={{float: "left"}}>{"Total: "}</b>
+                <div style={{float: "right"}}>{convertPrice(this.props.cart.orderTotal)}</div>
+              </div>
             </div>
+            <br/>
             <div>
               <h3>Shipping</h3>
               {Object.keys(this.state.shipping).map(key => (

@@ -11,7 +11,7 @@ const Order = db.define('orders', {
 		values: ['active', 'complete']
 	},
 	total: {
-		type: Sequelize.DECIMAL(10, 2)
+		type: Sequelize.INTEGER
 	},
 	totalItems: {
 		type: Sequelize.INTEGER
