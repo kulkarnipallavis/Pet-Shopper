@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {signUp} from 'APP/app/reducers/auth';
 import {connect} from 'react-redux';
 import NavBar from './NavBar';
+import Paper from 'material-ui/Paper';
 
 const style = {
   button : {
@@ -15,7 +16,13 @@ const style = {
   },
   container : {
     textAlign : "center",
-    paddingTop : "10%"
+    paddingTop : "5%"
+  },
+  form : {
+    width: '50%',
+    height: '50%',
+    marginLeft: '25%',
+    paddingTop : '5px'
   }
 };
 
@@ -71,42 +78,45 @@ export default connect (null, mapDispatchToProps) (
         <div>
           <NavBar/>
           <div style={ style.container }>
-            <h1 style={ style.title } >Sign Up</h1>
-            <form onSubmit={this.handleSubmit}>
-              <div>
-                <TextField
-                  name="name"
-                  hintText="Name"
-                  floatingLabelText="Name"
-                  onChange={this.handleChangeName}
-                /><br />
-                <br />
-                <TextField
-                  name="email"
-                  hintText="Email"
-                  floatingLabelText="Email"
-                  onChange={this.handleChangeEmail}
-                /><br />
-                <br />
-                <TextField
-                  name="password"
-                  hintText="Password"
-                  floatingLabelText="Password"
-                  type="password"
-                  onChange={this.handleChangePassword}
-                /><br />
-                <br />
-                <TextField
-                  name="passwordConfirm"
-                  hintText="Confirm Password"
-                  floatingLabelText="Confirm Password"
-                  type="password"
-                  errorText={this.state.errorText}
-                  onChange={this.handleChangeConfirm}
-                /><br />
-                <RaisedButton type="submit" value="signUp" label="Sign Up" backgroundColor="#FA8072" style={ style.button } disabled={this.state.disabled} labelStyle={{color: 'white'}}/>
-              </div>
-            </form>
+            <Paper style={style.form} zDepth={2} >
+              <h1 style={ style.title } >Sign Up</h1>
+              <form onSubmit={this.handleSubmit}>
+                <div>
+                  <TextField
+                    name="name"
+                    hintText="Name"
+                    floatingLabelText="Name"
+                    onChange={this.handleChangeName}
+                  /><br />
+                  <br />
+                  <TextField
+                    name="email"
+                    hintText="Email"
+                    floatingLabelText="Email"
+                    onChange={this.handleChangeEmail}
+                  /><br />
+                  <br />
+                  <TextField
+                    name="password"
+                    hintText="Password"
+                    floatingLabelText="Password"
+                    type="password"
+                    onChange={this.handleChangePassword}
+                  /><br />
+                  <br />
+                  <TextField
+                    name="passwordConfirm"
+                    hintText="Confirm Password"
+                    floatingLabelText="Confirm Password"
+                    type="password"
+                    errorText={this.state.errorText}
+                    onChange={this.handleChangeConfirm}
+                  /><br />
+                  <br />
+                  <RaisedButton type="submit" value="signUp" label="Sign Up" backgroundColor="#FA8072" style={ style.button } disabled={this.state.disabled} labelStyle={{color: 'white'}}/>
+                </div>
+              </form>
+            </Paper>
           </div>
         </div>
       );

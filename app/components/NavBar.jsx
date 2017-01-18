@@ -23,9 +23,9 @@ const handleClick = () => {
 
   return (
   <AppBar
-    title={<div onClick={handleClick}>Teenie and Friends</div>}
     style={titleStyles.barColor}
     titleStyle={titleStyles.titleColor}
+    title={<div onClick={handleClick}><img src="/images/logo.jpg"/></div>}
     iconElementLeft= {<DropDownProducts/>}
     iconElementRight= {<NavLoginSignupCart/>}
   />

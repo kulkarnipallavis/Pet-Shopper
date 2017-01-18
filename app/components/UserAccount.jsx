@@ -10,8 +10,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 const mapStateToProps = state => {
 	return {
-		orderHistory : state.orderHistory,
-		currentOrder : state.currentOrder
+		orderHistory : state.userAccount.orderHistory,
+		currentOrder : state.userAccount.currentOrder
 	} 
 }
 
@@ -22,21 +22,14 @@ const mapDispatchToProps = (dispatch) => {
 		getCurrentOrderDispatch : (id) => {
 			dispatch(getCurrentOrder(id));
 		},
-		getOrderHistoryDispatch : (id) => {
-			dispatch(getOrderHistory(id));
+		getOrderHistoryDispatch : () => {
+			dispatch(getOrderHistory());
 		}
 	}
 }
 
-export class UserAccount extends Component{
-
-	constructor(props){
-		super(props);
-		// props.getCurrentOrderDispatch();
-		// props.getOrderHistoryDispatch();
-	}
-
-	render(){
+export const UserAccount = (props) => {
+	
 		const styles = {
 	      root: {
 	        height: '70%',
@@ -46,7 +39,8 @@ export class UserAccount extends Component{
 	    };
 		// const currentOrder = this.props.orders.currentOrder;
 		// const orderHistory = this.props.orders.orderHistory;
-		const orderHistory = [1,2,3,4];
+		// const orderHistory = [1,2,3,4];
+		const orderHistory = props.orderHistory;
 		const currentOrder = {
 	        id: 1,
 	        products: [{
@@ -76,10 +70,10 @@ export class UserAccount extends Component{
 					<Tab label="Current Order"  style={{backgroundColor: '#EEEEEE', color:'black'}}>
 					<div style={{display : 'block'}}>
 						<div id="product-name" style={{textAlign:'left'}}>
-						<h2>Current Order</h2>
-		                  <h2>Status:{currentOrder.status}</h2>
+						<h4>Current Order</h4>
+		                  <h4>Status:{currentOrder.status}</h4>
 		                </div>
-		                <div style={{textAlign:'left', paddingLeft: '10px', paddingRight: '10px'}}>
+		                <div style={{textAlign:'left', paddingLeft: '10px', paddingBottom: '10px', paddingRight: '10px'}}>
 		                  Order created at: {currentOrder.created_at}
 		                </div>
 		                {	
@@ -97,7 +91,7 @@ export class UserAccount extends Component{
 						                    {product.name}
 						                  </div>
 						                  <div style={{textAlign:'left'}}>
-						                  	<img id='product-image' src={product.imageURL } style={{maxHeight: '150px', width: 'auto', display:'block', margin:'auto'}}/>
+						                  	<img id='product-image' src={product.imageURL } style={{maxHeight: '150px', width: 'auto', display:'block', margin:'auto', justifyContent: 'left'}}/>
 						                  </div>
 						                  <div style={{textAlign:'left'}}>
 						                    ${product.price}
@@ -113,7 +107,7 @@ export class UserAccount extends Component{
 					</Tab>
     				<Tab label="Order History"  style={{backgroundColor: '#EEEEEE', color:'black'}}>
 					<div>
-					<h2>Order History</h2>
+					<h4>Order History</h4>
 					{
 						orderHistory && orderHistory.map((order, index) =>(
 							<paper style={{height: 'auto', width: '700px', margin : '20px', display : 'block', position: 'relative'}} zDepth={2} >
@@ -133,7 +127,5 @@ export class UserAccount extends Component{
 			</div>
 		)
 	}
-
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAccount)

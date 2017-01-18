@@ -20,6 +20,10 @@ export default class DropDownProducts extends React.Component {
     this.state = {
       searchType: 'name'
     };
+    this.handleRadioChange = this.handleRadioChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleOpenMenu = this.handleOpenMenu.bind(this);
   };
 
   handleSubmit(value) {
@@ -32,6 +36,18 @@ export default class DropDownProducts extends React.Component {
       searchType: value
     });
   };
+
+  handleClick(event, child) {
+    if (child.props.value !== "search") this.setState({
+      openMenu: false,
+    });
+  };
+
+  handleOpenMenu = () => {
+    this.setState({
+      openMenu: true,
+    });
+  }
 
   render() {
     const style = {
@@ -46,6 +62,9 @@ export default class DropDownProducts extends React.Component {
           anchorOrigin={{horizontal: 'left', vertical: 'top'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           touchTapCloseDelay={0}
+          onItemTouchTap={this.handleClick}
+          open={this.state.openMenu}
+          onTouchTap={this.handleOpenMenu}
         >
           <MenuItem value="Products" primaryText="Browse All Products" containerElement={<Link to="/products" />}/>
           <Divider />
