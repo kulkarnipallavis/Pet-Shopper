@@ -12,6 +12,18 @@ const seedCategories = () => db.Promise.map([
 ], category => db.model('categories').create(category));
 
 const seedProducts = () => db.Promise.map([
+	{name: 'Bee Costume', category_id: 1, imageURL: '/images/clothing/beecostume.jpg', description: 'Bee costume for minature dogs. Made in America', price: 2899, tags:["costume", "clothing", "halloween"]},
+	{name: 'Blue T-Shirt', category_id: 1, imageURL: '/images/clothing/blueshirt.jpg', description: 'Plain blue shirt for minature dogs. Made in America', price: 1899, tags:["casual", "clothing"]},
+	{name: 'Tribal Patterned Dress', category_id: 1, imageURL: '/images/clothing/dress.jpg', description: 'Handmade dress for fancy occasions. Made in America', price: 4899, tags:["costume", "clothing", "dress"]},
+	{name: 'Gray Scarf', category_id: 1, imageURL: '/images/clothing/grayscarf.jpg', description: 'Gray woolen scarf. Made in America', price: 899, tags:["outerwear", "clothing", "scarf"]},
+	{name: 'Gray Sweatshirt', category_id: 1, imageURL: '/images/clothing/graysweatshirt.jpg', description: 'Gray sweatshirt for minature dachsunds. Made in America', price: 2899, tags:["outerwear", "clothing", "casual"]},
+	{name: 'Orange Coat', category_id: 1, imageURL: '/images/clothing/orangecoat.jpg', description: 'Fancy coat for minature dachsunds. Made in America', price: 3899, tags:["outerwear", "clothing"]},
+	{name: 'Patterned Coat', category_id: 1, imageURL: '/images/clothing/patternedcoat.jpg', description: 'Coat for minature dachsunds. Made in America', price: 2899, tags:["outerwear", "clothing"]},
+	{name: 'Pink shirt', category_id: 1, imageURL: '/images/clothing/pinkshirt.jpg', description: 'Pink shirt for minature dachsunds. Made in America', price: 1099, tags:["casual", "clothing"]},
+	{name: 'Pink sweater', category_id: 1, imageURL: '/images/clothing/pinksweater.jpg', description: 'Pink sweater for minature dachsunds. Made in America', price: 1899, tags:["sweater", "clothing"]},
+	{name: 'Red coat', category_id: 1, imageURL: '/images/clothing/redcoat.jpg', description: 'Red coat. Made in America', price: 2899, tags:["outerwear", "clothing"]},
+	{name: 'Red sweatshirt', category_id: 1, imageURL: '/images/clothing/redsweatshirt.jpg', description: 'Red sweatshirt. Made in America', price: 2899, tags:["casual", "clothing", "halloween"]},
+
 	{name: 'Stella and Chewys', category_id: 2, imageURL: '/images/food/stellaandchewys.jpg', description: 'Raw grass-fed beef. 100% complete & balanced dinner. Enchanced with probiotics & antioxidants', price: 1899, weight: "5.5oz", tags:["raw", "grain-free"]},
 	{name: 'Primal Raw', category_id: 2, imageURL: '/images/food/primalraw.jpeg', description: 'Raw grass-fed duck. Grain and gluten free. Made in the USA!', price: 2099, weight: "5.5oz", tags:["raw", "grain-free"]},
 	{name: 'Nature\'s Variety Instinct', category_id: 2, imageURL: '/images/food/instinct.jpeg', description: 'Raw grass-fed chicken. 95% meat, organs, bone & fat', price: 2199, weight: "5.5oz", tags:["raw", "grain-free"]},
