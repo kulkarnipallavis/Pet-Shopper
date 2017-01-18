@@ -109,4 +109,19 @@ router.post('/delete', (req, res, next) => {
 	.catch(next);
 });
 
+router.post('/done', (req, res, next) => {
+	req.session.order.status = 'complete';
+
+	syncDbOrder(req.user, req.session.order)
+	.then(() => {
+		req.session.order.products = [];
+		req.session.order.total = 0.00;
+		req.session.order.totalItems = 0;
+		res.send(req.session.order);
+	})
+	.catch(next);
+
+
+});
+
 module.exports = router;

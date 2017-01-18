@@ -5,6 +5,8 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {pinkA100} from 'material-ui/styles/colors';
 import store from './store'
 
 import LandingPage from './components/LandingPage'
@@ -16,12 +18,20 @@ import {Options} from './components/SignInOptions'
 
 import Products from './components/Products'
 import Product from './components/Product'
+import Checkout from './components/Checkout'
 
 import {getAllProducts, getListProducts, getSelectedProduct} from './reducers/products'
 import {getCategories} from './reducers/categories';
 import {fetchOrder, setTotal} from './reducers/cart'
 
 injectTapEventPlugin();
+
+const muiTheme = getMuiTheme({
+  fontFamily: 'Roboto, sans-serif',
+  palette: {
+    primary1Color: "#FA8072",
+  }
+});
 
 const onProductsEnter = (nextRouterState) => {
   store.dispatch(getAllProducts());
@@ -42,6 +52,9 @@ const onSingleProductEnter = (nextRouterState) => {
 const onCartEnter = () => {
   store.dispatch(fetchOrder())
 }
+const onCheckoutEnter = () => {
+  store.dispatch(fetchOrder())
+}
 
 const onLandingPageEnter = () => {
   store.dispatch(getCategories());
@@ -49,7 +62,7 @@ const onLandingPageEnter = () => {
 
 render (
 
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={LandingPage} onEnter={onLandingPageEnter}/>
@@ -58,6 +71,7 @@ render (
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/products" component={Products} onEnter={onProductsEnter} />
         <Route path="/products/:id" component={Product} onEnter={onSingleProductEnter}/>
+        <Route path="/checkout" component={Checkout} onEnter={onCheckoutEnter}/>
       <Route path="/products/categories/:id" component={Products} onEnter={onProductsEnter} />
       </Router>
     </Provider>
